@@ -9,3 +9,134 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Usuario {
+  id     String  @id @default(cuid())
+  email  String  @unique
+  nome   String
+  login  String
+  senha  String
+}
+
+model Cliente {
+  id       String  @id @default(cuid())
+  email    String  @unique
+  nome     String
+  telefone String
+  pedidos  Pedido[]
+}
+
+model Empresa {
+  id           String  @id @default(cuid())
+  cnpj         String  @unique
+  razao_social String
+  telefone     String
+  produtos     Produto[]
+  pedidos      Pedido[]
+  kits         Kit[]
+}
+
+model Marca {
+  id       String    @id @default(cuid())
+  nome     String
+  produtos Produto[]
+}
+
+model Tipos_variacao {
+  id        String      @id @default(cuid())
+  nome      String
+  descricao String
+  variacoes Variacao[]
+}
+
+model Produto {
+  id         String      @id @default(cuid())
+  descricao  String
+  marca_id   String
+  empresa_id String
+  marca      Marca       @relation(fields: [marca_id], references: [id])
+  empresa    Empresa     @relation(fields: [empresa_id], references: [id])
+  variacoes  Variacao[]
+  itens_kits Itens_kit[]
+}
+
+model Variacao {
+  id               String        @id @default(cuid())
+  valor            String
+  tipo_variacao_id String
+  produto_id       String
+  tipo_variacao    Tipos_variacao @relation(fields: [tipo_variacao_id], references: [id])
+  produto          Produto        @relation(fields: [produto_id], references: [id])
+  itens_lotes      Itens_lote[]
+  itens_pedidos    Itens_pedido[]
+  Lote             Lote[]
+  Itens_kit        Itens_kit[]
+}
+
+model Lote {
+  id          String     @id @default(cuid())
+  variacao_id String
+  variacao    Variacao   @relation(fields: [variacao_id], references: [id])
+  itens       Itens_lote[]
+}
+
+model Itens_lote {
+  id            String    @id @default(cuid())
+  variacao_id   String
+  lote_id       String
+  qt            Int
+  codigo        Float
+  data_validade DateTime
+  variacao      Variacao  @relation(fields: [variacao_id], references: [id])
+  lote          Lote      @relation(fields: [lote_id], references: [id])
+}
+
+model Formas_pagamento {
+  id      String     @id @default(cuid())
+  nome    String
+  pedidos Pedido[]
+}
+
+model Pedido {
+  id                 String           @id @default(cuid())
+  valor_total        Decimal
+  qt_total           Int
+  status             String
+  forma_pagamento_id String
+  cliente_id         String
+  empresa_id         String
+  forma_pagamento    Formas_pagamento @relation(fields: [forma_pagamento_id], references: [id])
+  cliente            Cliente          @relation(fields: [cliente_id], references: [id])
+  empresa            Empresa          @relation(fields: [empresa_id], references: [id])
+  itens_pedidos      Itens_pedido[]
+}
+
+model Itens_pedido {
+  id          String     @id @default(cuid())
+  qt          Int
+  valor       Decimal
+  pedido_id   String
+  variacao_id String
+  pedido      Pedido     @relation(fields: [pedido_id], references: [id])
+  variacao    Variacao   @relation(fields: [variacao_id], references: [id])
+}
+
+model Kit {
+  id         String     @id @default(cuid())
+  valor      Decimal
+  descricao  String
+  empresa_id String
+  empresa    Empresa    @relation(fields: [empresa_id], references: [id])
+  Itens_kit  Itens_kit[]
+}
+
+model Itens_kit {
+  id          String     @id @default(cuid())
+  qt          Int
+  kit_id      String
+  produto_id  String
+  variacao_id String
+  kit         Kit        @relation(fields: [kit_id], references: [id])
+  produto     Produto    @relation(fields: [produto_id], references: [id])
+  variacao    Variacao   @relation(fields: [variacao_id], references: [id])
+}
