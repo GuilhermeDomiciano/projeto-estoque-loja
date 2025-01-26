@@ -6,38 +6,61 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
 model Usuario {
-  id     String  @id @default(cuid())
-  email  String  @unique
-  nome   String
-  login  String
-  senha  String
+  id      String   @id @default(cuid())
+  email   String   @unique
+  nome    String
+  login   String
+  senha   String
+  empresas Empresa[] // Relacionamento com empresas
+  UsuarioEmpresa UsuarioEmpresa[]
+}
+
+model Cargo{
+  id    String   @id @default(cuid())
+  nome  String
+  descricao String
+  usuarios UsuarioEmpresa[]
+}
+
+model UsuarioEmpresa{
+  id        String   @id @default(cuid())
+  usuario_id String
+  empresa_id String
+  cargo_id   String
+  usuario    Usuario @relation(fields: [usuario_id], references: [id])
+  empresa    Empresa @relation(fields: [empresa_id], references: [id])
+  cargo      Cargo   @relation(fields: [cargo_id], references: [id])
 }
 
 model Cliente {
   id       String  @id @default(cuid())
-  email    String  @unique
+  email    String? @unique // Permitir nulo
   nome     String
-  telefone String
+  telefone String? // Permitir nulo
   pedidos  Pedido[]
 }
 
+
 model Empresa {
-  id           String  @id @default(cuid())
-  cnpj         String  @unique
+  id           String   @id @default(cuid())
+  cnpj         String?  @unique // Permitir nulo
   razao_social String
-  telefone     String
+  telefone     String?  // Permitir nulo
   produtos     Produto[]
   pedidos      Pedido[]
   kits         Kit[]
+  usuarios     Usuario[] 
+
+  UsuarioEmpresa UsuarioEmpresa[]
 }
 
 model Marca {
-  id       String    @id @default(cuid())
+  id       String   @id @default(cuid())
   nome     String
   produtos Produto[]
 }
@@ -45,13 +68,13 @@ model Marca {
 model Tipos_variacao {
   id        String      @id @default(cuid())
   nome      String
-  descricao String
+  descricao String?     // Permitir nulo
   variacoes Variacao[]
 }
 
 model Produto {
   id         String      @id @default(cuid())
-  descricao  String
+  descricao  String?     // Permitir nulo
   marca_id   String
   empresa_id String
   marca      Marca       @relation(fields: [marca_id], references: [id])
@@ -62,7 +85,6 @@ model Produto {
 
 model Variacao {
   id               String        @id @default(cuid())
-  valor            String
   tipo_variacao_id String
   produto_id       String
   tipo_variacao    Tipos_variacao @relation(fields: [tipo_variacao_id], references: [id])
@@ -75,25 +97,31 @@ model Variacao {
 
 model Lote {
   id          String     @id @default(cuid())
-  variacao_id String
-  variacao    Variacao   @relation(fields: [variacao_id], references: [id])
+  codigo      Int        // Adicionar código de barras
+  validade    DateTime?  // Adicionar data de validade (pode ser nulo)
   itens       Itens_lote[]
+
+  Variacao Variacao[]
+
+  Itens_pedido Itens_pedido[]
 }
 
 model Itens_lote {
-  id            String    @id @default(cuid())
+  id            String   @id @default(cuid())
   variacao_id   String
   lote_id       String
   qt            Int
-  codigo        Float
-  data_validade DateTime
-  variacao      Variacao  @relation(fields: [variacao_id], references: [id])
-  lote          Lote      @relation(fields: [lote_id], references: [id])
+  preco_compra  Decimal  // Adicionar preço de compra
+  preco_venda   Decimal  // Adicionar preço de venda
+  variacao      Variacao @relation(fields: [variacao_id], references: [id])
+  lote          Lote     @relation(fields: [lote_id], references: [id])
 }
 
 model Formas_pagamento {
   id      String     @id @default(cuid())
   nome    String
+  cor     String?    // Permitir nulo
+  icone   String?    // Permitir nulo
   pedidos Pedido[]
 }
 
@@ -101,12 +129,13 @@ model Pedido {
   id                 String           @id @default(cuid())
   valor_total        Decimal
   qt_total           Int
-  status             String
   forma_pagamento_id String
-  cliente_id         String
+  status_id          String
+  cliente_id         String?          // Permitir nulo
   empresa_id         String
+  status             Status           @relation(fields: [status_id], references: [id])
   forma_pagamento    Formas_pagamento @relation(fields: [forma_pagamento_id], references: [id])
-  cliente            Cliente          @relation(fields: [cliente_id], references: [id])
+  cliente            Cliente?         @relation(fields: [cliente_id], references: [id])
   empresa            Empresa          @relation(fields: [empresa_id], references: [id])
   itens_pedidos      Itens_pedido[]
 }
@@ -116,27 +145,41 @@ model Itens_pedido {
   qt          Int
   valor       Decimal
   pedido_id   String
-  variacao_id String
-  pedido      Pedido     @relation(fields: [pedido_id], references: [id])
-  variacao    Variacao   @relation(fields: [variacao_id], references: [id])
+  lote_id     String?     // Adicionar lote (pode ser nulo)
+  kit_id      String?     // Adicionar kit (pode ser nulo)
+  pedido      Pedido      @relation(fields: [pedido_id], references: [id])
+  lote        Lote?       @relation(fields: [lote_id], references: [id])
+  kit         Kit?        @relation(fields: [kit_id], references: [id])
+
+  Variacao Variacao[]
 }
 
 model Kit {
   id         String     @id @default(cuid())
   valor      Decimal
-  descricao  String
+  descricao  String?    // Permitir nulo
   empresa_id String
   empresa    Empresa    @relation(fields: [empresa_id], references: [id])
   Itens_kit  Itens_kit[]
+
+  Itens_pedido Itens_pedido[]
 }
 
 model Itens_kit {
   id          String     @id @default(cuid())
   qt          Int
   kit_id      String
-  produto_id  String
   variacao_id String
   kit         Kit        @relation(fields: [kit_id], references: [id])
-  produto     Produto    @relation(fields: [produto_id], references: [id])
   variacao    Variacao   @relation(fields: [variacao_id], references: [id])
+
+  Produto Produto[]
+}
+
+model Status {
+  id        String     @id @default(cuid())
+  nome      String
+  descricao String?    // Permitir nulo
+  cor       String?    // Permitir nulo
+  pedidos   Pedido[]
 }
