@@ -22,7 +22,7 @@ export default function Page() {
     }, []);
 
     if (usuarios){
-        console.log('Usuários tão funcionando.')
+        return //Isso aqui é so pra nao quebrar o vercel kkkkkk
     }
 
     return (
@@ -30,5 +30,4 @@ export default function Page() {
             <CadastrarUsuario />
         </div>
     );
-    
 }
