@@ -5,6 +5,10 @@ export default class RepositorioUsuario{
     private static db: PrismaClient = new PrismaClient();
 
     static async obterTodos(): Promise<Usuario[]>{
-        return await this.db.usuario.findMany();
+        const usuarios = await this.db.usuario.findMany();
+        return usuarios.map(usuario => ({
+            ...usuario,
+            id: Number(usuario.id)
+        }));
     }
 }
