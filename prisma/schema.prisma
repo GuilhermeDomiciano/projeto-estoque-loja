@@ -12,7 +12,6 @@ datasource db {
 
 model Usuario {
   id      String   @id @default(cuid())
-  email   String   @unique
   nome    String
   login   String
   senha   String
@@ -55,8 +54,7 @@ model Empresa {
   pedidos      Pedido[]
   kits         Kit[]
   usuarios     Usuario[] 
-
-  UsuarioEmpresa UsuarioEmpresa[]
+  usuarioEmpresa UsuarioEmpresa[]
 }
 
 model Marca {
@@ -150,8 +148,8 @@ model Itens_pedido {
   pedido      Pedido      @relation(fields: [pedido_id], references: [id])
   lote        Lote?       @relation(fields: [lote_id], references: [id])
   kit         Kit?        @relation(fields: [kit_id], references: [id])
-
   Variacao Variacao[]
+
 }
 
 model Kit {
@@ -161,8 +159,8 @@ model Kit {
   empresa_id String
   empresa    Empresa    @relation(fields: [empresa_id], references: [id])
   Itens_kit  Itens_kit[]
-
   Itens_pedido Itens_pedido[]
+
 }
 
 model Itens_kit {
@@ -172,8 +170,8 @@ model Itens_kit {
   variacao_id String
   kit         Kit        @relation(fields: [kit_id], references: [id])
   variacao    Variacao   @relation(fields: [variacao_id], references: [id])
-
   Produto Produto[]
+
 }
 
 model Status {

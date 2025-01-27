@@ -1,11 +1,14 @@
-import { Pedido, Variacao } from "@prisma/client";
+import { Kit } from "./Kit";
+import { Lote } from "./Lote";
+import { Variacao } from "./Variacao";
+
 
 export interface Itens_pedido {
     id: string;
     qt: number;
     valor: number;
     pedido_id: string;
-    variacao_id: string;
-    pedido: Pedido;
-    variacao: Variacao;
+    lote_id?: Lote | null;
+    kit_id?: Kit | null;
+    variacao: Variacao[];
 }

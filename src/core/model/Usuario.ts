@@ -1,7 +1,11 @@
+import { Empresa } from "./Empresa";
+import { UsuarioEmpresa } from "./UsuarioEmpresa";
+
 export interface Usuario {
     id: string;  
-    email: string;   
     nome: string; 
     login: string; 
-    senha: string
+    senha: string;
+    empresas: Empresa[];
+    UsuarioEmpresas: UsuarioEmpresa[];
 }

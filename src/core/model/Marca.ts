@@ -1,4 +1,4 @@
-import { Produto } from "@prisma/client";
+import { Produto } from "./Produto";
 
 export interface Marca {
     id:       string; 

@@ -1,8 +1,12 @@
-import { Itens_lote, Variacao } from "@prisma/client";
+import { Itens_lote } from "./Itens_lote";
+import { Variacao } from "./Variacao";
+import { Itens_pedido } from "./Itens_pedido";
 
 export interface Lote {
   id: string;
-  variacao_id: string;
-  variacao: Variacao;
+  codigo: number;
+  validade?: Date | null;
   itens: Itens_lote[];
+  variacao: Variacao;
+  Itens_pedido: Itens_pedido[]
 }
