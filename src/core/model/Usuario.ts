@@ -2,7 +2,7 @@ import { Empresa } from "./Empresa";
 import { UsuarioEmpresa } from "./UsuarioEmpresa";
 
 export interface Usuario {
-    id: string;  
+    id: number;  
     nome: string; 
     login: string; 
     senha: string;
