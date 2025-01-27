@@ -11,29 +11,29 @@ datasource db {
 }
 
 model Usuario {
-  id      String   @id @default(cuid())
-  nome    String
-  login   String
-  senha   String
-  empresas Empresa[] // Relacionamento com empresas
-  UsuarioEmpresa UsuarioEmpresa[]
+  id             String   @id @default(cuid())
+  nome           String
+  login          String
+  senha          String
+  empresas       Empresa[]
+  usuarioEmpresa UsuarioEmpresa[]
 }
 
-model Cargo{
-  id    String   @id @default(cuid())
-  nome  String
-  descricao String
-  usuarios UsuarioEmpresa[]
+model Cargo {
+  id          String   @id @default(cuid())
+  nome        String
+  descricao   String
+  usuarios    UsuarioEmpresa[]
 }
 
-model UsuarioEmpresa{
-  id        String   @id @default(cuid())
-  usuario_id String
-  empresa_id String
-  cargo_id   String
-  usuario    Usuario @relation(fields: [usuario_id], references: [id])
-  empresa    Empresa @relation(fields: [empresa_id], references: [id])
-  cargo      Cargo   @relation(fields: [cargo_id], references: [id])
+model UsuarioEmpresa {
+  id          String   @id @default(cuid())
+  usuario_id  String
+  empresa_id  String
+  cargo_id    String
+  usuario     Usuario @relation(fields: [usuario_id], references: [id])
+  empresa     Empresa @relation(fields: [empresa_id], references: [id])
+  cargo       Cargo   @relation(fields: [cargo_id], references: [id])
 }
 
 model Cliente {
@@ -44,16 +44,15 @@ model Cliente {
   pedidos  Pedido[]
 }
 
-
 model Empresa {
-  id           String   @id @default(cuid())
-  cnpj         String?  @unique // Permitir nulo
-  razao_social String
-  telefone     String?  // Permitir nulo
-  produtos     Produto[]
-  pedidos      Pedido[]
-  kits         Kit[]
-  usuarios     Usuario[] 
+  id             String   @id @default(cuid())
+  cnpj           String?  @unique // Permitir nulo
+  razao_social   String
+  telefone       String?  // Permitir nulo
+  produtos       Produto[]
+  pedidos        Pedido[]
+  kits           Kit[]
+  usuarios       Usuario[]
   usuarioEmpresa UsuarioEmpresa[]
 }
 
@@ -98,9 +97,7 @@ model Lote {
   codigo      Int        // Adicionar código de barras
   validade    DateTime?  // Adicionar data de validade (pode ser nulo)
   itens       Itens_lote[]
-
-  Variacao Variacao[]
-
+  Variacao    Variacao[]
   Itens_pedido Itens_pedido[]
 }
 
@@ -148,19 +145,17 @@ model Itens_pedido {
   pedido      Pedido      @relation(fields: [pedido_id], references: [id])
   lote        Lote?       @relation(fields: [lote_id], references: [id])
   kit         Kit?        @relation(fields: [kit_id], references: [id])
-  Variacao Variacao[]
-
+  Variacao    Variacao[]
 }
 
 model Kit {
-  id         String     @id @default(cuid())
-  valor      Decimal
-  descricao  String?    // Permitir nulo
-  empresa_id String
-  empresa    Empresa    @relation(fields: [empresa_id], references: [id])
-  Itens_kit  Itens_kit[]
+  id           String     @id @default(cuid())
+  valor        Decimal
+  descricao    String?    // Permitir nulo
+  empresa_id   String
+  empresa      Empresa    @relation(fields: [empresa_id], references: [id])
+  Itens_kit    Itens_kit[]
   Itens_pedido Itens_pedido[]
-
 }
 
 model Itens_kit {
@@ -170,8 +165,7 @@ model Itens_kit {
   variacao_id String
   kit         Kit        @relation(fields: [kit_id], references: [id])
   variacao    Variacao   @relation(fields: [variacao_id], references: [id])
-  Produto Produto[]
-
+  Produto     Produto[]
 }
 
 model Status {
