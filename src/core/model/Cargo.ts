@@ -1,8 +1,6 @@
-import { UsuarioEmpresa } from "./UsuarioEmpresa";
-
 export interface Cargo {
-    id: string;
+    id: number;
     nome: string;
     descricao: string;
-    usuarios: UsuarioEmpresa[];
+    usuarios: number[];
 }

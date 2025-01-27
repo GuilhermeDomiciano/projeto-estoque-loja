@@ -1,14 +1,7 @@
-import { Kit } from "./Kit";
-import { Produto } from "./Produto";
-import { Variacao } from "./Variacao";
-
-
 export interface Itens_kit {
-    id: string;
+    id: number;
     qt: number;
-    kit_id: string;
-    variacao_id: string;
-    kit: Kit;
-    variacao: Variacao;
-    produto: Produto[];
+    kit_id: number;
+    variacao_id: number;
+    produto: number[];
 }

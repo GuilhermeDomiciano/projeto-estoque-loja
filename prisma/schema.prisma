@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Usuario {
-  id             Int   @id @default(autoincrement())
+  id             Int      @id @default(autoincrement())
   nome           String
   login          String
   senha          String
@@ -21,37 +21,37 @@ model Usuario {
 }
 
 model Cargo {
-  id             Int   @id @default(autoincrement())
-  nome           String
-  descricao      String
-  usuarios       UsuarioEmpresa[]
-  createdAt      DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  nome        String
+  descricao   String
+  usuarios    UsuarioEmpresa[]
+  createdAt   DateTime @default(now())
 }
 
 model UsuarioEmpresa {
-  id             Int   @id @default(autoincrement())
-  usuario_id     Int
-  empresa_id     Int
-  cargo_id       Int
-  usuario        Usuario @relation(fields: [usuario_id], references: [id])
-  empresa        Empresa @relation(fields: [empresa_id], references: [id])
-  cargo          Cargo   @relation(fields: [cargo_id], references: [id])
-  createdAt      DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  usuario_id  Int
+  empresa_id  Int
+  cargo_id    Int
+  usuario     Usuario @relation(fields: [usuario_id], references: [id])
+  empresa     Empresa @relation(fields: [empresa_id], references: [id])
+  cargo       Cargo   @relation(fields: [cargo_id], references: [id])
+  createdAt   DateTime @default(now())
 }
 
 model Cliente {
-  id             Int   @id @default(autoincrement())
-  email          String? @unique
-  nome           String
-  telefone       String?
-  pedidos        Pedido[]
-  createdAt      DateTime @default(now())
+  id       Int     @id @default(autoincrement())
+  email    String? @unique
+  nome     String
+  telefone String?
+  pedidos  Pedido[]
+  createdAt DateTime @default(now())
 }
 
 model Empresa {
-  id             Int   @id @default(autoincrement())
-  cnpj           String? @unique
-  razao_social   String 
+  id             Int      @id @default(autoincrement())
+  cnpj           String?  @unique
+  razao_social   String
   telefone       String?
   produtos       Produto[]
   pedidos        Pedido[]
@@ -62,134 +62,133 @@ model Empresa {
 }
 
 model Marca {
-  id             Int   @id @default(autoincrement())
-  nome           String
-  produtos       Produto[]
-  createdAt      DateTime @default(now())
+  id       Int      @id @default(autoincrement())
+  nome     String
+  produtos Produto[]
+  createdAt DateTime @default(now())
 }
 
 model Tipos_variacao {
-  id             Int   @id @default(autoincrement())
-  nome           String
-  descricao      String?
-  variacoes      Variacao[]
-  createdAt      DateTime @default(now())
+  id        Int        @id @default(autoincrement())
+  nome      String
+  descricao String?
+  variacoes Variacao[]
+  createdAt DateTime @default(now())
 }
 
 model Produto {
-  id             Int   @id @default(autoincrement())
-  descricao      String?
-  marca_id       Int
-  empresa_id     Int
-  marca          Marca       @relation(fields: [marca_id], references: [id])
-  empresa        Empresa     @relation(fields: [empresa_id], references: [id])
-  variacoes      Variacao[]
-  itens_kits     Itens_kit[]
-  createdAt      DateTime @default(now())
+  id         Int        @id @default(autoincrement())
+  descricao  String?
+  marca_id   Int
+  empresa_id Int
+  marca      Marca      @relation(fields: [marca_id], references: [id])
+  empresa    Empresa    @relation(fields: [empresa_id], references: [id])
+  variacoes  Variacao[]
+  itens_kits Itens_kit[]
+  createdAt  DateTime @default(now())
 }
 
 model Variacao {
-  id             Int   @id @default(autoincrement())
+  id               Int           @id @default(autoincrement())
   tipo_variacao_id Int
   produto_id       Int
   tipo_variacao    Tipos_variacao @relation(fields: [tipo_variacao_id], references: [id])
   produto          Produto        @relation(fields: [produto_id], references: [id])
   itens_lotes      Itens_lote[]
   itens_pedidos    Itens_pedido[]
-  Lote             Lote[]
+  lote             Lote[]
   Itens_kit        Itens_kit[]
   createdAt        DateTime @default(now())
-  updatedAt        DateTime? @updatedAt
 }
 
 model Lote {
-  id             Int   @id @default(autoincrement())
-  codigo         Int
-  validade       DateTime?
-  itens          Itens_lote[]
-  Variacao       Variacao[]
-  Itens_pedido   Itens_pedido[]
-  createdAt      DateTime @default(now())
+  id           Int        @id @default(autoincrement())
+  codigo       Int
+  validade     DateTime?
+  itens        Itens_lote[]
+  variacao     Variacao[]
+  itens_pedido Itens_pedido[]
+  createdAt    DateTime @default(now())
 }
 
 model Itens_lote {
-  id             Int   @id @default(autoincrement())
-  variacao_id    Int
-  lote_id        Int
-  qt             Int
-  preco_compra   Decimal
-  preco_venda    Decimal
-  variacao       Variacao @relation(fields: [variacao_id], references: [id])
-  lote           Lote     @relation(fields: [lote_id], references: [id])
-  createdAt      DateTime @default(now())
+  id           Int      @id @default(autoincrement())
+  variacao_id  Int
+  lote_id      Int
+  qt           Int
+  preco_compra Decimal
+  preco_venda  Decimal
+  variacao     Variacao @relation(fields: [variacao_id], references: [id])
+  lote         Lote     @relation(fields: [lote_id], references: [id])
+  createdAt    DateTime @default(now())
 }
 
 model Formas_pagamento {
-  id             Int   @id @default(autoincrement())
-  nome           String
-  cor            String?
-  icone          String?
-  pedidos        Pedido[]
-  createdAt      DateTime @default(now())
+  id         Int       @id @default(autoincrement())
+  nome       String
+  cor        String?
+  icone      String?
+  pedidos    Pedido[]
+  createdAt  DateTime @default(now())
 }
 
 model Pedido {
-  id             Int   @id @default(autoincrement())
-  valor_total    Decimal
-  qt_total       Int
+  id                 Int              @id @default(autoincrement())
+  valor_total        Decimal
+  qt_total           Int
   forma_pagamento_id Int
-  status_id      Int
-  cliente_id     Int?
-  empresa_id     Int
-  status         Status           @relation(fields: [status_id], references: [id])
-  forma_pagamento Formas_pagamento @relation(fields: [forma_pagamento_id], references: [id])
-  cliente        Cliente?         @relation(fields: [cliente_id], references: [id])
-  empresa        Empresa          @relation(fields: [empresa_id], references: [id])
-  itens_pedidos  Itens_pedido[]
-  createdAt      DateTime @default(now())
+  status_id          Int
+  cliente_id         Int?
+  empresa_id         Int
+  status             Status           @relation(fields: [status_id], references: [id])
+  forma_pagamento    Formas_pagamento @relation(fields: [forma_pagamento_id], references: [id])
+  cliente            Cliente?         @relation(fields: [cliente_id], references: [id])
+  empresa            Empresa          @relation(fields: [empresa_id], references: [id])
+  itens_pedidos      Itens_pedido[]
+  createdAt          DateTime @default(now())
 }
 
 model Itens_pedido {
-  id             Int   @id @default(autoincrement())
-  qt             Int
-  valor          Decimal
-  pedido_id      Int
-  lote_id        Int?
-  kit_id         Int?
-  pedido         Pedido      @relation(fields: [pedido_id], references: [id])
-  lote           Lote?       @relation(fields: [lote_id], references: [id])
-  kit            Kit?        @relation(fields: [kit_id], references: [id])
-  Variacao       Variacao[]
-  createdAt      DateTime @default(now())
+  id          Int       @id @default(autoincrement())
+  qt          Int
+  valor       Decimal
+  pedido_id   Int
+  lote_id     Int?
+  kit_id      Int?
+  pedido      Pedido    @relation(fields: [pedido_id], references: [id])
+  lote        Lote?     @relation(fields: [lote_id], references: [id])
+  kit         Kit?      @relation(fields: [kit_id], references: [id])
+  variacao    Variacao[]
+  createdAt   DateTime @default(now())
 }
 
 model Kit {
-  id             Int   @id @default(autoincrement())
-  valor          Decimal
-  descricao      String?
-  empresa_id     Int
-  empresa        Empresa    @relation(fields: [empresa_id], references: [id])
-  Itens_kit      Itens_kit[]
-  Itens_pedido   Itens_pedido[]
-  createdAt      DateTime @default(now())
+  id           Int       @id @default(autoincrement())
+  valor        Decimal
+  descricao    String?
+  empresa_id   Int
+  empresa      Empresa   @relation(fields: [empresa_id], references: [id])
+  itens_kit    Itens_kit[]
+  itens_pedido Itens_pedido[]
+  createdAt    DateTime @default(now())
 }
 
 model Itens_kit {
-  id             Int   @id @default(autoincrement())
-  qt             Int
-  kit_id         Int
-  variacao_id    Int
-  kit            Kit        @relation(fields: [kit_id], references: [id])
-  variacao       Variacao   @relation(fields: [variacao_id], references: [id])
-  Produto        Produto[]
-  createdAt      DateTime @default(now())
+  id          Int       @id @default(autoincrement())
+  qt          Int
+  kit_id      Int
+  variacao_id Int
+  kit         Kit       @relation(fields: [kit_id], references: [id])
+  variacao    Variacao  @relation(fields: [variacao_id], references: [id])
+  produto     Produto[]
+  createdAt   DateTime @default(now())
 }
 
 model Status {
-  id             Int   @id @default(autoincrement())
-  nome           String
-  descricao      String?
-  cor            String?
-  pedidos        Pedido[]
-  createdAt      DateTime @default(now())
+  id        Int       @id @default(autoincrement())
+  nome      String
+  descricao String?
+  cor       String?
+  pedidos   Pedido[]
+  createdAt DateTime @default(now())
 }

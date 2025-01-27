@@ -1,9 +1,7 @@
-import { Pedido } from "./Pedido";
-
 export interface Formas_pagamento {
-  id: string;
+  id: number;
   nome: string;
   cor?: string | null;
   icone?: string | null;
-  pedidos: Pedido[];
+  pedidos: number[];
 }

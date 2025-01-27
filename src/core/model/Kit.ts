@@ -1,13 +1,8 @@
-import { Empresa } from "./Empresa";
-import { Itens_kit } from "./Itens_kit";
-import { Itens_pedido } from "./Itens_pedido";
-
-
 export interface Kit {
-    id: string;
+    id: number;
     valor: number;
     descricao?: string | null;
-    empresa_id: Empresa;
-    Itens_kit: Itens_kit[];
-    Itens_pedido: Itens_pedido[]
+    empresa_id: number;
+    Itens_kit: number[];
+    Itens_pedido: number[]
 }
