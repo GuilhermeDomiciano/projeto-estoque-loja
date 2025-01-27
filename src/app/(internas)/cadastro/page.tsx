@@ -1,6 +1,6 @@
 "use client"
 
-import CadastrarUsuario from '@/app/components/login/CadastrarUsuario'
+// import CadastrarUsuario from '@/app/components/login/CadastrarUsuario'
 import Backend from '@/backend'
 import { Usuario } from '@/core/model/Usuario'
 import { useEffect, useState } from 'react'
