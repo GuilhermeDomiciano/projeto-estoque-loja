@@ -1,11 +1,7 @@
-export interface PaginaProps{
-    children: React.ReactNode
-}
-
-export default function Pagina(props: PaginaProps) {
+export default function Pagina() {
     return (
         <div>
-            {props.children}
+            opa
         </div>
     )
 }

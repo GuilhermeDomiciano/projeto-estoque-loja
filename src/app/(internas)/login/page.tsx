@@ -4,10 +4,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import usuarios from "@/app/data/constants/usuarios";
 
-export default function CadastrarUsuario() {
-  const [formData, setFormData] = useState({
-    id: "",
-    nome: "",
+export default function Login() {
+  const [loginData, setLoginData] = useState({
     login: "",
     senha: "",
   });
@@ -17,7 +15,7 @@ export default function CadastrarUsuario() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
+    setLoginData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -26,50 +24,28 @@ export default function CadastrarUsuario() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const exists = usuarios.some((user) => user.login === formData.login);
-    if (exists) {
-      setMessage("Usuário já cadastrado");
-      return;
+    const user = usuarios.find(
+      (user) => user.login === loginData.login && user.senha === loginData.senha
+    );
+
+    if (user) {
+      setMessage("Login bem-sucedido");
+      setTimeout(() => {
+        router.push("/dashboard"); // Redirecionar para a página de dashboard
+      }, 1000);
+    } else {
+      setMessage("Credenciais inválidas");
     }
-
-    formData.id = (usuarios.length + 1).toString();
-    usuarios.push(formData);
-
-    setMessage("Usuário cadastrado com sucesso");
-    setFormData({
-      id: "",
-      nome: "",
-      login: "",
-      senha: "",
-    });
-
-    // Redirecionar para a página de login após 2 segundos
-    setTimeout(() => {
-      router.push("/login");
-    }, 2000);
-  };
-
-  const navigateToLogin = () => {
-    router.push("/login");
   };
 
   return (
     <div className="p-4 max-w-md mx-auto">
-      <h1 className="text-xl font-bold mb-4">Cadastrar Novo Usuário</h1>
+      <h1 className="text-xl font-bold mb-4">Login</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="text"
-          name="nome"
-          value={formData.nome}
-          onChange={handleChange}
-          placeholder="Nome"
-          className="border p-2 rounded"
-          required
-        />
-        <input
-          type="text"
           name="login"
-          value={formData.login}
+          value={loginData.login}
           onChange={handleChange}
           placeholder="Login"
           className="border p-2 rounded"
@@ -78,7 +54,7 @@ export default function CadastrarUsuario() {
         <input
           type="password"
           name="senha"
-          value={formData.senha}
+          value={loginData.senha}
           onChange={handleChange}
           placeholder="Senha"
           className="border p-2 rounded"
@@ -88,16 +64,21 @@ export default function CadastrarUsuario() {
           type="submit"
           className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
         >
-          Cadastrar
+          Entrar
         </button>
       </form>
       {message && <p className="mt-4 text-center">{message}</p>}
-      <button
-        onClick={navigateToLogin}
-        className="mt-4 text-blue-500 underline text-sm"
-      >
-        Já tem uma conta? Faça login
-      </button>
+
+      {/* Link para a página de cadastro */}
+      <div className="mt-4 text-center">
+        <p>Não tem uma conta?</p>
+        <button
+          onClick={() => router.push("/cadastro")}
+          className="text-blue-500 hover:text-blue-700"
+        >
+          Cadastre-se aqui
+        </button>
+      </div>
     </div>
   );
 }
