@@ -21,6 +21,10 @@ export default function Page() {
             });
     }, []);
 
+    if (usuarios){
+        return //Isso aqui é so pra nao quebrar o vercel kkkkkk
+    }
+
     return (
         <div>
             <CadastrarUsuario />
