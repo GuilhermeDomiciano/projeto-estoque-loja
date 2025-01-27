@@ -6,7 +6,7 @@ import usuarios from "@/app/data/constants/usuarios";
 
 export default function CadastrarUsuario() {
   const [formData, setFormData] = useState({
-    id: "",
+    id: 0,
     nome: "",
     login: "",
     senha: "",
@@ -32,12 +32,12 @@ export default function CadastrarUsuario() {
       return;
     }
 
-    formData.id = (usuarios.length + 1).toString();
+    formData.id = (usuarios.length + 1);
     usuarios.push(formData);
 
     setMessage("Usuário cadastrado com sucesso");
     setFormData({
-      id: "",
+      id: 0,
       nome: "",
       login: "",
       senha: "",

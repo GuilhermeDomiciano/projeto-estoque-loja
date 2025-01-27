@@ -1,9 +1,7 @@
-import { Pedido } from "./Pedido";
-
 export interface Cliente {
-    id:       string;  
-    email:    string;  
+    id:       number;  
+    email?:    string | null;  
     nome:     string;
-    telefone: string;
-    pedidos:  Pedido[]
+    telefone?: string | null;
+    pedidos:  number[]
 }

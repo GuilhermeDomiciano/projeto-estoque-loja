@@ -1,8 +1,6 @@
-import { Variacao } from "./Variacao";
-
 export interface Tipos_variacao {
-    id:   string; 
+    id:   number; 
     nome: string;
     descricao?: string | null;
-    variacoes: Variacao[]
+    variacoes: number[]
 }

@@ -11,167 +11,184 @@ datasource db {
 }
 
 model Usuario {
-  id             String   @id @default(cuid())
+  id             Int      @id @default(autoincrement())
   nome           String
   login          String
   senha          String
   empresas       Empresa[]
   usuarioEmpresa UsuarioEmpresa[]
+  createdAt      DateTime @default(now())
 }
 
 model Cargo {
-  id          String   @id @default(cuid())
+  id          Int      @id @default(autoincrement())
   nome        String
   descricao   String
   usuarios    UsuarioEmpresa[]
+  createdAt   DateTime @default(now())
 }
 
 model UsuarioEmpresa {
-  id          String   @id @default(cuid())
-  usuario_id  String
-  empresa_id  String
-  cargo_id    String
+  id          Int      @id @default(autoincrement())
+  usuario_id  Int
+  empresa_id  Int
+  cargo_id    Int
   usuario     Usuario @relation(fields: [usuario_id], references: [id])
   empresa     Empresa @relation(fields: [empresa_id], references: [id])
   cargo       Cargo   @relation(fields: [cargo_id], references: [id])
+  createdAt   DateTime @default(now())
 }
 
 model Cliente {
-  id       String  @id @default(cuid())
-  email    String? @unique // Permitir nulo
+  id       Int     @id @default(autoincrement())
+  email    String? @unique
   nome     String
-  telefone String? // Permitir nulo
+  telefone String?
   pedidos  Pedido[]
+  createdAt DateTime @default(now())
 }
 
 model Empresa {
-  id             String   @id @default(cuid())
-  cnpj           String?  @unique // Permitir nulo
+  id             Int      @id @default(autoincrement())
+  cnpj           String?  @unique
   razao_social   String
-  telefone       String?  // Permitir nulo
+  telefone       String?
   produtos       Produto[]
   pedidos        Pedido[]
   kits           Kit[]
   usuarios       Usuario[]
   usuarioEmpresa UsuarioEmpresa[]
+  createdAt      DateTime @default(now())
 }
 
 model Marca {
-  id       String   @id @default(cuid())
+  id       Int      @id @default(autoincrement())
   nome     String
   produtos Produto[]
+  createdAt DateTime @default(now())
 }
 
 model Tipos_variacao {
-  id        String      @id @default(cuid())
+  id        Int        @id @default(autoincrement())
   nome      String
-  descricao String?     // Permitir nulo
+  descricao String?
   variacoes Variacao[]
+  createdAt DateTime @default(now())
 }
 
 model Produto {
-  id         String      @id @default(cuid())
-  descricao  String?     // Permitir nulo
-  marca_id   String
-  empresa_id String
-  marca      Marca       @relation(fields: [marca_id], references: [id])
-  empresa    Empresa     @relation(fields: [empresa_id], references: [id])
+  id         Int        @id @default(autoincrement())
+  descricao  String?
+  marca_id   Int
+  empresa_id Int
+  marca      Marca      @relation(fields: [marca_id], references: [id])
+  empresa    Empresa    @relation(fields: [empresa_id], references: [id])
   variacoes  Variacao[]
   itens_kits Itens_kit[]
+  createdAt  DateTime @default(now())
 }
 
 model Variacao {
-  id               String        @id @default(cuid())
-  tipo_variacao_id String
-  produto_id       String
+  id               Int           @id @default(autoincrement())
+  tipo_variacao_id Int
+  produto_id       Int
   tipo_variacao    Tipos_variacao @relation(fields: [tipo_variacao_id], references: [id])
   produto          Produto        @relation(fields: [produto_id], references: [id])
   itens_lotes      Itens_lote[]
   itens_pedidos    Itens_pedido[]
-  Lote             Lote[]
+  lote             Lote[]
   Itens_kit        Itens_kit[]
+  createdAt        DateTime @default(now())
 }
 
 model Lote {
-  id          String     @id @default(cuid())
-  codigo      Int        // Adicionar código de barras
-  validade    DateTime?  // Adicionar data de validade (pode ser nulo)
-  itens       Itens_lote[]
-  Variacao    Variacao[]
-  Itens_pedido Itens_pedido[]
+  id           Int        @id @default(autoincrement())
+  codigo       Int
+  validade     DateTime?
+  itens        Itens_lote[]
+  variacao     Variacao[]
+  itens_pedido Itens_pedido[]
+  createdAt    DateTime @default(now())
 }
 
 model Itens_lote {
-  id            String   @id @default(cuid())
-  variacao_id   String
-  lote_id       String
-  qt            Int
-  preco_compra  Decimal  // Adicionar preço de compra
-  preco_venda   Decimal  // Adicionar preço de venda
-  variacao      Variacao @relation(fields: [variacao_id], references: [id])
-  lote          Lote     @relation(fields: [lote_id], references: [id])
+  id           Int      @id @default(autoincrement())
+  variacao_id  Int
+  lote_id      Int
+  qt           Int
+  preco_compra Decimal
+  preco_venda  Decimal
+  variacao     Variacao @relation(fields: [variacao_id], references: [id])
+  lote         Lote     @relation(fields: [lote_id], references: [id])
+  createdAt    DateTime @default(now())
 }
 
 model Formas_pagamento {
-  id      String     @id @default(cuid())
-  nome    String
-  cor     String?    // Permitir nulo
-  icone   String?    // Permitir nulo
-  pedidos Pedido[]
+  id         Int       @id @default(autoincrement())
+  nome       String
+  cor        String?
+  icone      String?
+  pedidos    Pedido[]
+  createdAt  DateTime @default(now())
 }
 
 model Pedido {
-  id                 String           @id @default(cuid())
+  id                 Int              @id @default(autoincrement())
   valor_total        Decimal
   qt_total           Int
-  forma_pagamento_id String
-  status_id          String
-  cliente_id         String?          // Permitir nulo
-  empresa_id         String
+  forma_pagamento_id Int
+  status_id          Int
+  cliente_id         Int?
+  empresa_id         Int
   status             Status           @relation(fields: [status_id], references: [id])
   forma_pagamento    Formas_pagamento @relation(fields: [forma_pagamento_id], references: [id])
   cliente            Cliente?         @relation(fields: [cliente_id], references: [id])
   empresa            Empresa          @relation(fields: [empresa_id], references: [id])
   itens_pedidos      Itens_pedido[]
+  createdAt          DateTime @default(now())
 }
 
 model Itens_pedido {
-  id          String     @id @default(cuid())
+  id          Int       @id @default(autoincrement())
   qt          Int
   valor       Decimal
-  pedido_id   String
-  lote_id     String?     // Adicionar lote (pode ser nulo)
-  kit_id      String?     // Adicionar kit (pode ser nulo)
-  pedido      Pedido      @relation(fields: [pedido_id], references: [id])
-  lote        Lote?       @relation(fields: [lote_id], references: [id])
-  kit         Kit?        @relation(fields: [kit_id], references: [id])
-  Variacao    Variacao[]
+  pedido_id   Int
+  lote_id     Int?
+  kit_id      Int?
+  pedido      Pedido    @relation(fields: [pedido_id], references: [id])
+  lote        Lote?     @relation(fields: [lote_id], references: [id])
+  kit         Kit?      @relation(fields: [kit_id], references: [id])
+  variacao    Variacao[]
+  createdAt   DateTime @default(now())
 }
 
 model Kit {
-  id           String     @id @default(cuid())
+  id           Int       @id @default(autoincrement())
   valor        Decimal
-  descricao    String?    // Permitir nulo
-  empresa_id   String
-  empresa      Empresa    @relation(fields: [empresa_id], references: [id])
-  Itens_kit    Itens_kit[]
-  Itens_pedido Itens_pedido[]
+  descricao    String?
+  empresa_id   Int
+  empresa      Empresa   @relation(fields: [empresa_id], references: [id])
+  itens_kit    Itens_kit[]
+  itens_pedido Itens_pedido[]
+  createdAt    DateTime @default(now())
 }
 
 model Itens_kit {
-  id          String     @id @default(cuid())
+  id          Int       @id @default(autoincrement())
   qt          Int
-  kit_id      String
-  variacao_id String
-  kit         Kit        @relation(fields: [kit_id], references: [id])
-  variacao    Variacao   @relation(fields: [variacao_id], references: [id])
-  Produto     Produto[]
+  kit_id      Int
+  variacao_id Int
+  kit         Kit       @relation(fields: [kit_id], references: [id])
+  variacao    Variacao  @relation(fields: [variacao_id], references: [id])
+  produto     Produto[]
+  createdAt   DateTime @default(now())
 }
 
 model Status {
-  id        String     @id @default(cuid())
+  id        Int       @id @default(autoincrement())
   nome      String
-  descricao String?    // Permitir nulo
-  cor       String?    // Permitir nulo
+  descricao String?
+  cor       String?
   pedidos   Pedido[]
+  createdAt DateTime @default(now())
 }

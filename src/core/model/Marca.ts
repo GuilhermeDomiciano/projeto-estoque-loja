@@ -1,7 +1,5 @@
-import { Produto } from "./Produto";
-
 export interface Marca {
-    id:       string; 
+    id:       number; 
     nome:     string;
-    produtos: Produto[]
+    produtos: number[]
 }

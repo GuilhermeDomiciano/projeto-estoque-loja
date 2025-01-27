@@ -1,9 +1,7 @@
-import { Pedido } from "./Pedido";
-
 export interface Status{
-    id: string;
+    id: number;
     nome: string;
     descricao?: string | null;
     cor?: string | null;
-    pedidos: Pedido[]
+    pedidos: number[]
 }
