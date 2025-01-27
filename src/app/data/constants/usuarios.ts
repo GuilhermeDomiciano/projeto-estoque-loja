@@ -3,16 +3,18 @@ import { Usuario } from "@/core/model/Usuario";
 const usuarios: Usuario[] = [
     {
         id: '1',
-        email: 'giorno@gmail.com',
-        nome: 'Giorno Domiciano',
+        nome: 'Giorno Domiciano Feitosa',
         login: 'giorno',
-        senha: '123'
+        senha: '123',
+        empresas: [],
+        UsuarioEmpresas: []
     }, {
         id: '2',
-        email: 'Gaira@gmail.com',
-        nome: 'Gaira Domiciano',
+        nome: 'Gaira Domiciano Feitosa',
         login: 'gaira',
-        senha: '123'
+        senha: '123',
+        empresas: [],
+        UsuarioEmpresas: []
     }
 ]
 

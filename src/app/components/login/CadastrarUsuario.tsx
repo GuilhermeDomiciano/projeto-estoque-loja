@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import {Usuario} from "@/core/model/Usuario";
 import usuarios from "@/app/data/constants/usuarios";
 
 export default function cadastrarUsuario() {
@@ -55,15 +54,6 @@ export default function cadastrarUsuario() {
               value={formData.nome}
               onChange={handleChange}
               placeholder="Nome"
-              className="border p-2 rounded"
-              required
-            />
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="E-mail"
               className="border p-2 rounded"
               required
             />

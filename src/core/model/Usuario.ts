@@ -6,6 +6,6 @@ export interface Usuario {
     nome: string; 
     login: string; 
     senha: string;
-    empresas: Empresa[];
-    UsuarioEmpresas: UsuarioEmpresa[];
+    empresas?: Empresa[] | null;
+    UsuarioEmpresas?: UsuarioEmpresa[] | null;
 }
