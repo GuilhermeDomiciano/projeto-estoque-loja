@@ -5,9 +5,8 @@ import Backend from '@/backend'
 import { Usuario } from '@/core/model/Usuario'
 import { useEffect, useState } from 'react'
 
-export default function page() {
+export default function Page() {  
     const [usuarios, setUsuarios] = useState<Usuario[]>([])
-    const [usuario, setUsuario] = useState<Partial<Usuario> | null>(null)
 
     useEffect(() => {
         Backend.usuarios.obter().then(setUsuarios)
