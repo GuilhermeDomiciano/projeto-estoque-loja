@@ -5,8 +5,9 @@ import Backend from '@/backend'
 import { Usuario } from '@/core/model/Usuario'
 import { useEffect, useState } from 'react'
 
-export default function Page() {  
-    const [usuarios, setUsuarios] = useState<Usuario[]>([])
+export default function Page() {
+    console.log('Componente Page renderizado');
+    const [usuarios, setUsuarios] = useState<Usuario[]>([]);
 
     useEffect(() => {
         console.log('Iniciando requisição de usuários...');
@@ -23,7 +24,6 @@ export default function Page() {
     return (
         <div>
             <CadastrarUsuario />
-            
             <h2>Lista de Usuários</h2>
             <ul>
                 {usuarios.length > 0 ? (
@@ -37,5 +37,5 @@ export default function Page() {
                 )}
             </ul>
         </div>
-    )
+    );
 }
