@@ -9,8 +9,16 @@ export default function Page() {
     const [usuarios, setUsuarios] = useState<Usuario[]>([])
 
     useEffect(() => {
-        Backend.usuarios.obter().then(setUsuarios)
-    }, [])
+        console.log('Iniciando requisição de usuários...');
+        Backend.usuarios.obter()
+            .then((data) => {
+                console.log('Usuários obtidos:', data);
+                setUsuarios(data);
+            })
+            .catch((error) => {
+                console.error('Erro ao obter usuários:', error);
+            });
+    }, []);
 
     return (
         <div>
