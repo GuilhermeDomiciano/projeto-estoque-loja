@@ -22,7 +22,7 @@ export default function Page() {
 
     return (
         <div>
-            <CadastrarUsuario />
+            {/* <CadastrarUsuario /> */}
             
             <h2>Lista de Usuários</h2>
             <ul>
