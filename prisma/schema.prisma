@@ -17,6 +17,7 @@ model Usuario {
   senha          String
   empresas       Empresa[]
   usuarioEmpresa UsuarioEmpresa[]
+  createdAt      DateTime @default(now())
 }
 
 model Cargo {
@@ -24,6 +25,7 @@ model Cargo {
   nome           String
   descricao      String
   usuarios       UsuarioEmpresa[]
+  createdAt      DateTime @default(now())
 }
 
 model UsuarioEmpresa {
@@ -34,6 +36,7 @@ model UsuarioEmpresa {
   usuario        Usuario @relation(fields: [usuario_id], references: [id])
   empresa        Empresa @relation(fields: [empresa_id], references: [id])
   cargo          Cargo   @relation(fields: [cargo_id], references: [id])
+  createdAt      DateTime @default(now())
 }
 
 model Cliente {
@@ -42,6 +45,7 @@ model Cliente {
   nome           String
   telefone       String?
   pedidos        Pedido[]
+  createdAt      DateTime @default(now())
 }
 
 model Empresa {
@@ -54,12 +58,14 @@ model Empresa {
   kits           Kit[]
   usuarios       Usuario[]
   usuarioEmpresa UsuarioEmpresa[]
+  createdAt      DateTime @default(now())
 }
 
 model Marca {
   id             Int   @id @default(autoincrement())
   nome           String
   produtos       Produto[]
+  createdAt      DateTime @default(now())
 }
 
 model Tipos_variacao {
@@ -67,6 +73,7 @@ model Tipos_variacao {
   nome           String
   descricao      String?
   variacoes      Variacao[]
+  createdAt      DateTime @default(now())
 }
 
 model Produto {
@@ -78,6 +85,7 @@ model Produto {
   empresa        Empresa     @relation(fields: [empresa_id], references: [id])
   variacoes      Variacao[]
   itens_kits     Itens_kit[]
+  createdAt      DateTime @default(now())
 }
 
 model Variacao {
@@ -90,6 +98,8 @@ model Variacao {
   itens_pedidos    Itens_pedido[]
   Lote             Lote[]
   Itens_kit        Itens_kit[]
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime? @updatedAt
 }
 
 model Lote {
@@ -99,6 +109,7 @@ model Lote {
   itens          Itens_lote[]
   Variacao       Variacao[]
   Itens_pedido   Itens_pedido[]
+  createdAt      DateTime @default(now())
 }
 
 model Itens_lote {
@@ -110,6 +121,7 @@ model Itens_lote {
   preco_venda    Decimal
   variacao       Variacao @relation(fields: [variacao_id], references: [id])
   lote           Lote     @relation(fields: [lote_id], references: [id])
+  createdAt      DateTime @default(now())
 }
 
 model Formas_pagamento {
@@ -118,6 +130,7 @@ model Formas_pagamento {
   cor            String?
   icone          String?
   pedidos        Pedido[]
+  createdAt      DateTime @default(now())
 }
 
 model Pedido {
@@ -133,6 +146,7 @@ model Pedido {
   cliente        Cliente?         @relation(fields: [cliente_id], references: [id])
   empresa        Empresa          @relation(fields: [empresa_id], references: [id])
   itens_pedidos  Itens_pedido[]
+  createdAt      DateTime @default(now())
 }
 
 model Itens_pedido {
@@ -146,6 +160,7 @@ model Itens_pedido {
   lote           Lote?       @relation(fields: [lote_id], references: [id])
   kit            Kit?        @relation(fields: [kit_id], references: [id])
   Variacao       Variacao[]
+  createdAt      DateTime @default(now())
 }
 
 model Kit {
@@ -156,6 +171,7 @@ model Kit {
   empresa        Empresa    @relation(fields: [empresa_id], references: [id])
   Itens_kit      Itens_kit[]
   Itens_pedido   Itens_pedido[]
+  createdAt      DateTime @default(now())
 }
 
 model Itens_kit {
@@ -166,6 +182,7 @@ model Itens_kit {
   kit            Kit        @relation(fields: [kit_id], references: [id])
   variacao       Variacao   @relation(fields: [variacao_id], references: [id])
   Produto        Produto[]
+  createdAt      DateTime @default(now())
 }
 
 model Status {
@@ -174,4 +191,5 @@ model Status {
   descricao      String?
   cor            String?
   pedidos        Pedido[]
+  createdAt      DateTime @default(now())
 }
