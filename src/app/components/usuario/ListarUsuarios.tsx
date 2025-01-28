@@ -1,20 +1,18 @@
-import usuarios from "@/app/data/constants/usuarios";
+import { Usuario } from "@/core/model/Usuario"
+import LinhaUsuario from "./LinhaUsuario"
 
-export default function ListarUsuarios(){
+export interface ListaUsuarioProps{
+    usuarios: Usuario[]
+    onClick?: (usuario: Usuario) => void
+}
+
+export default function ListarUsuarios(props:ListaUsuarioProps){
     return (
         <div>
-            <h2>Lista de Usuários</h2>
-            <ul>
-                {usuarios.length > 0 ? (
-                    usuarios.map((usuario) => (
-                        <li key={usuario.id}>
-                            <strong>{usuario.nome}</strong> - {usuario.login}
-                        </li>
-                    ))
-                ) : (
-                    <li>Não há usuários cadastrados.</li>
-                )}
-            </ul>
+            {props.usuarios.map((usuario: Usuario) => {
+                return <LinhaUsuario key={usuario.id!} usuario={usuario}/>
+            })
+            }
         </div>
     )
 }
