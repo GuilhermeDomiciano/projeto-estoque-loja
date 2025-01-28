@@ -13,7 +13,7 @@ datasource db {
 model Usuario {
   id             Int      @id @default(autoincrement())
   nome           String
-  login          String
+  login          String @unique
   senha          String
   empresas       Empresa[]
   usuarioEmpresa UsuarioEmpresa[]

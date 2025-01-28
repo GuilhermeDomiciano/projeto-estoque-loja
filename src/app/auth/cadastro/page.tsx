@@ -55,9 +55,6 @@ export default async function Cadastro() {
                 />
               </div>
             </div>
-
-            
-
             <div>
               <div className="flex items-center justify-between">
                 <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
