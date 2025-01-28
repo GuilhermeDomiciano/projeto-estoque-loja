@@ -1,3 +1,5 @@
+
+
 export default function Login() {
     return (
       <>
@@ -24,16 +26,16 @@ export default function Login() {
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form action="#" method="POST" className="space-y-6">
               <div>
-                <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
-                  Email address
+                <label htmlFor="username" className="block text-sm/6 font-medium text-gray-900">
+                  Nome de Usuário
                 </label>
                 <div className="mt-2">
                   <input
-                    id="email"
-                    name="email"
-                    type="email"
+                    id="username"
+                    name="username"
+                    type="text"
                     required
-                    autoComplete="email"
+                    //autoComplete="username"
                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                   />
                 </div>
@@ -73,9 +75,9 @@ export default function Login() {
             </form>
   
             <p className="mt-10 text-center text-sm/6 text-gray-500">
-              Not a member?{' '}
-              <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                Não tem conta? Cadastre-se
+            Não tem conta?{' '}
+              <a href="../../auth/cadastro" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                 Cadastre-se
               </a>
             </p>
           </div>
