@@ -23,11 +23,7 @@ export default async function registrarUser(formData: FormData) {
   const db = new PrismaClient();
 
   try {
-    console.log('Tentando criar usuário com os dados:', {
-      nome: nome,
-      login: login,
-      senha: senha,
-    });
+    
 
     // Hashear a senha antes de armazenar
     const hashedPassword = hashSync(senha, 10);
