@@ -1,5 +1,18 @@
+"use client";
+
+import ListarUsuarios from '@/app/components/usuario/ListarUsuarios';
 import  registrarUser  from '../../auth/cadastro/registrarUser';
+import { useEffect, useState } from 'react';
+import { Usuario } from '@/core/model/Usuario';
+import Backend from '@/backend';
+
 export default async function Cadastro() {
+  const [usuarios, setUsuarios] = useState<Usuario[]>([])
+  
+    useEffect(() => {
+      Backend.usuarios.obter().then(setUsuarios)
+    }, [])
+
   return (
     <>
       {/*
@@ -94,6 +107,9 @@ export default async function Cadastro() {
           </p>
         </div>
       </div>
+      <h1 className="text-5xl">Lista de usuarios:</h1>
+      <span>Isso é temporário thalison, eu vou tirar eventualmente</span>
+      <ListarUsuarios usuarios={usuarios}/>
     </>
   )
 }
