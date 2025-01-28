@@ -1,103 +1,105 @@
-"use client";
+"use client"; // Marca este componente como um Client Component
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import usuarios from "@/app/data/constants/usuarios";
+import { FormEvent } from "react";
+import { registrarUsuario } from "@/backend/usuario/registrarUser"; // Importe a função diretamente
 
 export default function CadastrarUsuario() {
-  const [formData, setFormData] = useState({
-    id: 0,
-    nome: "",
-    login: "",
-    senha: "",
-  });
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-  const [message, setMessage] = useState<string | null>(null);
-  const router = useRouter();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+    const nome = formData.get("nome")?.toString() ?? "";
+    const login = formData.get("username")?.toString() ?? "";
+    const senha = formData.get("password")?.toString() ?? "";
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const exists = usuarios.some((user) => user.login === formData.login);
-    if (exists) {
-      setMessage("Usuário já cadastrado");
-      return;
+    try {
+      await registrarUsuario(nome, login, senha);
+      alert("Usuário cadastrado com sucesso!");
+    } catch (error) {
+      alert("Erro ao cadastrar o usuário.");
+      console.error(error);
     }
-
-    formData.id = (usuarios.length + 1);
-    usuarios.push(formData);
-
-    setMessage("Usuário cadastrado com sucesso");
-    setFormData({
-      id: 0,
-      nome: "",
-      login: "",
-      senha: "",
-    });
-
-    // Redirecionar para a página de login após 2 segundos
-    setTimeout(() => {
-      router.push("/login");
-    }, 2000);
-  };
-
-  const navigateToLogin = () => {
-    router.push("/login");
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <h1 className="text-xl font-bold mb-4">Cadastrar Novo Usuário</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input
-          type="text"
-          name="nome"
-          value={formData.nome}
-          onChange={handleChange}
-          placeholder="Nome"
-          className="border p-2 rounded"
-          required
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        <img
+          alt="Your Company"
+          src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+          className="mx-auto h-10 w-auto"
         />
-        <input
-          type="text"
-          name="login"
-          value={formData.login}
-          onChange={handleChange}
-          placeholder="Login"
-          className="border p-2 rounded"
-          required
-        />
-        <input
-          type="password"
-          name="senha"
-          value={formData.senha}
-          onChange={handleChange}
-          placeholder="Senha"
-          className="border p-2 rounded"
-          required
-        />
-        <button
-          type="submit"
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-        >
-          Cadastrar
-        </button>
-      </form>
-      {message && <p className="mt-4 text-center">{message}</p>}
-      <button
-        onClick={navigateToLogin}
-        className="mt-4 text-blue-500 underline text-sm"
-      >
-        Já tem uma conta? Faça login
-      </button>
+        <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+          Sign up for an account
+        </h2>
+      </div>
+
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label htmlFor="nome" className="block text-sm font-medium text-gray-900">
+              Nome
+            </label>
+            <div className="mt-2">
+              <input
+                id="nome"
+                name="nome"
+                type="text"
+                required
+                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="username" className="block text-sm font-medium text-gray-900">
+              Nome de Usuário
+            </label>
+            <div className="mt-2">
+              <input
+                id="username"
+                name="username"
+                type="text"
+                required
+                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-900">
+              Password
+            </label>
+            <div className="mt-2">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                required
+                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
+              />
+            </div>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Sign up
+            </button>
+          </div>
+        </form>
+
+        <p className="mt-10 text-center text-sm text-gray-500">
+          Já tem conta?{' '}
+          <a href="../../auth/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
+            Faça o login
+          </a>
+        </p>
+      </div>
     </div>
   );
 }
