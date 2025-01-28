@@ -1,7 +1,8 @@
 'use server';
 
-import { PrismaClient } from '@prisma/client';
+//import { PrismaClient } from '@prisma/client';
 import { hashSync } from 'bcrypt-ts';
+import db from '../../../../lib/db';
 
 export default async function registrarUser(formData: FormData) {
   if (!formData) {
@@ -20,10 +21,20 @@ export default async function registrarUser(formData: FormData) {
     return;
   }
 
-  const db = new PrismaClient();
+  //const db = new PrismaClient();
 
   try {
-    
+
+    const usuarioExistente = await db.usuario.findFirst({
+      where: {
+        login: login.toString(),
+      },
+    });
+
+    if (usuarioExistente) {
+      console.error('Usuário já existe');
+      return;
+    }
 
     // Hashear a senha antes de armazenar
     const hashedPassword = hashSync(senha, 10);
