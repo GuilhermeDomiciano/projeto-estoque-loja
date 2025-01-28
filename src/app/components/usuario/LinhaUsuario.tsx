@@ -8,7 +8,7 @@ export default function ListaUsuario(props: LinhaUsuarioProps){
     return(
         <div>
             <div>
-                <span>{props.usuario.nome}</span>
+                <span>{props.usuario.nome} - {props.usuario.login} - {props.usuario.senha}</span>
             </div>
         </div>
     )
