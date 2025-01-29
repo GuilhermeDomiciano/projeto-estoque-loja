@@ -1,6 +1,5 @@
 "use client";
 
-import FormularioEmpresas from "@/app/components/empresa/FormularioEmpresa";
 import ListarEmpresas from "@/app/components/empresa/ListarEmpresas";
 import Backend from "@/backend";
 import { Empresa } from "@/core/model/Empresa";
