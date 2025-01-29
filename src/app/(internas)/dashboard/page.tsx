@@ -14,11 +14,7 @@ export default function Page() {
 
   return (
     <div>
-<<<<<<< HEAD
-      oi
-=======
       <ListarEmpresas empresas={empresas}/>
->>>>>>> 1482ee777a4902f7eb8346bc729f7a6e94efd527
     </div>
   )
 }
