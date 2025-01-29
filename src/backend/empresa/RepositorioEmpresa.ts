@@ -5,7 +5,7 @@ export default class RepositorioEmpresa{
     private static db: PrismaClient = new PrismaClient();
 
     static async salvarEmpresa(empresa: Empresa): Promise<Empresa> {
-      const { id, produtos = [], pedidos = [], kits = [], usuarios = [], usuarioEmpresas = [], ...empresaSemId } = empresa;
+      const { produtos = [], pedidos = [], kits = [], usuarios = [], usuarioEmpresas = [], ...empresaSemId } = empresa;
     
       const createdEmpresa = await this.db.empresa.create({
         data: {
