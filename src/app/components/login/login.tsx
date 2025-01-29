@@ -1,8 +1,17 @@
 import loginAction from "@/app/(auth)/login/login-Action";
+import { auth } from "../../../../auth";
+import { redirect } from "next/navigation";
 
 
 
-export default  function Login() {
+
+export default async function Login() {
+  const session = await auth();
+
+  if(session){
+    return redirect('/dashboard');
+  }else{
+
  
 
     return (
@@ -90,4 +99,4 @@ export default  function Login() {
     )
   }
 
-  
+}
