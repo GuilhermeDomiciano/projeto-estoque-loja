@@ -1,20 +1,21 @@
 "use client";
 
-import ListarEmpresas from "@/app/components/empresa/ListarEmpresas";
 import Backend from "@/backend";
-import { Empresa } from "@/core/model/Empresa";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
-  const [empresas, setEmpresas] = useState<Empresa[]>([])
-
-  useEffect(() => {
-    Backend.empresas.obterTodas().then(empresas => setEmpresas(empresas || [])) 
-  }, []);
+  const router = useRouter();
 
   return (
     <div>
-      <ListarEmpresas empresas={empresas}/>
+      {/* <ListarEmpresas empresas={empresas}/> */}
+      <button 
+        onClick={() => router.push("/cadastrarEmpresa")} 
+        className="px-4 py-2"
+      >
+        Cadastrar Empresa
+      </button>
     </div>
-  )
+  );
 }
