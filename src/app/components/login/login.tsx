@@ -1,6 +1,10 @@
+import loginAction from "@/app/(auth)/login/login-Action";
 
 
-export default function Login() {
+
+export default  function Login() {
+ 
+
     return (
       <>
         {/*
@@ -24,7 +28,7 @@ export default function Login() {
           </div>
   
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form action="#" method="POST" className="space-y-6">
+            <form action={loginAction}  className="space-y-6">
               <div>
                 <label htmlFor="username" className="block text-sm/6 font-medium text-gray-900">
                   Nome de Usuário
@@ -85,4 +89,5 @@ export default function Login() {
       </>
     )
   }
+
   
