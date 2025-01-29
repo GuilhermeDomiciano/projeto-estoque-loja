@@ -4,33 +4,40 @@ import { PrismaClient } from "@prisma/client";
 export default class RepositorioEmpresa{
     private static db: PrismaClient = new PrismaClient();
 
-    // static async salvarEmpresa(empresa: Empresa): Promise<Empresa> {
-    //   const { id, produtos, pedidos, kits, usuarios, usuarioEmpresas, ...dados } = empresa;
-  
-    //   if (id == null) {
-    //       throw new Error("O campo 'id' é necessário para salvar ou atualizar uma empresa.");
-    //   }
-  
-    //   const empresaSalva = await this.db.empresa.upsert({
-    //       where: { id },
-    //       update: {
-    //           ...dados, // Campos simples do modelo
-    //       },
-    //       create: {
-    //           ...dados, // Campos simples do modelo
-    //       },
-    //   });
-  
-    //   return {
-    //       ...empresaSalva,
-    //       id: Number(empresaSalva.id),
-    //       produtos: empresa.produtos,
-    //       pedidos: empresa.pedidos,
-    //       kits: empresa.kits,
-    //       usuarios: empresa.usuarios,
-    //       usuarioEmpresas: empresa.usuarioEmpresas,
-    //   };
-    // }
+    static async salvarEmpresa(empresa: Empresa): Promise<Empresa> {
+      const { id, produtos = [], pedidos = [], kits = [], usuarios = [], usuarioEmpresas = [], ...empresaSemId } = empresa;
+    
+      const createdEmpresa = await this.db.empresa.create({
+        data: {
+          ...empresaSemId, // Dados da empresa sem o id
+          produtos: {
+            connect: produtos.map((produtoId) => ({ id: produtoId })),
+          },
+          pedidos: {
+            connect: pedidos.map((pedidoId) => ({ id: pedidoId })),
+          },
+          kits: {
+            connect: kits.map((kitId) => ({ id: kitId })),
+          },
+          usuarios: {
+            connect: usuarios.map((usuarioId) => ({ id: usuarioId })),
+          },
+          usuarioEmpresa: {
+            connect: usuarioEmpresas.map((usuarioEmpresaId) => ({ id: usuarioEmpresaId })),
+          },
+        },
+      });
+    
+      return {
+        ...createdEmpresa,
+        produtos,
+        pedidos,
+        kits,
+        usuarios,
+        usuarioEmpresas,
+      };
+    }
+    
 
     static async obterTodasEmpresas(): Promise<Empresa[]> {
       const empresas = await this.db.empresa.findMany({

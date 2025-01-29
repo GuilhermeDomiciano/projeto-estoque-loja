@@ -1,8 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "../../../../auth";
 
-
-
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -15,12 +13,8 @@ export default async function RootLayout({
     }
   
   return (
-
     <html lang="en">
-      
-      <body
-        
-      >
+      <body>
         {children}
       </body>
     </html>
