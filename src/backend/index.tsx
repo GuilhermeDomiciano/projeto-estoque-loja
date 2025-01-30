@@ -1,3 +1,4 @@
+import obterTodasCargos from "./cargo/obterTodosCargos";
 import obterTodasEmpresas from "./empresa/obterTodasEmpresas";
 import salvarEmpresa from "./empresa/salvarEmpresa";
 import obterTodos from "./usuario/obterTodos";
@@ -11,5 +12,8 @@ export default class Backend{
     static readonly empresas ={
       obterTodas: obterTodasEmpresas,
       salvarEmpresa: salvarEmpresa,
+    }
+    static readonly cargos = {
+      obterTodos: obterTodasCargos
     }
 }
