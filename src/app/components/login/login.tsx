@@ -6,11 +6,12 @@ import { redirect } from "next/navigation";
 
 
 export default async function Login() {
-  const session = await auth();
+  // Ta redirecionando msm estando certo
+  // const session = await auth();
 
-  if(session){
-    return redirect('/dashboard');
-  }else{
+  // if(session){
+  //   return redirect('/dashboard');
+  // }else{
 
  
     return (
@@ -90,4 +91,3 @@ export default async function Login() {
     )
   }
 
-}
