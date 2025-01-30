@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 
 
 export default async function Login() {
-  // Ta redirecionando msm estando certo
+  // Ta redirecionando msm não estando logado
   // const session = await auth();
 
   // if(session){
