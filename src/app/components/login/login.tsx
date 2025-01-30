@@ -6,12 +6,11 @@ import { redirect } from "next/navigation";
 
 
 export default async function Login() {
-  // Ta redirecionando msm não estando logado
-  // const session = await auth();
+  const session = await auth();
 
-  // if(session){
-  //   return redirect('/dashboard');
-  // }else{
+  if(session){
+    return redirect('/dashboard');
+  }else{
 
  
     return (
