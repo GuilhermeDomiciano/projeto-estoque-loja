@@ -1,4 +1,4 @@
-import NextAuth, { NextAuthOptions } from 'next-auth';
+import NextAuth from 'next-auth';
 import Credentials from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
 import { Session } from "next-auth";
@@ -6,8 +6,14 @@ import findUser from "./lib/user";
 import { setUser } from "./lib/usuario";
 import { Usuario } from "./src/backend/interfaces/Usuario";
 
-// 🔹 Sobrescrevendo os tipos do NextAuth para incluir os campos personalizados
+// 🔹 Estendendo o tipo User do NextAuth para incluir os campos personalizados
 declare module "next-auth" {
+  interface User {
+    id?: string | undefined;
+    nome: string;
+    login: string;
+  }
+
   interface Session {
     user: Usuario;
   }
@@ -21,9 +27,7 @@ declare module "next-auth/jwt" {
   }
 }
 
-
-
-export const authOptions: NextAuthOptions  = {
+export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
       credentials: {
@@ -43,15 +47,17 @@ export const authOptions: NextAuthOptions  = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }: { token: JWT; user?: Usuario }) {
+    async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
+        // Certificando que o 'user' contém os campos necessários
+        token.id = String(user.id);
         token.nome = user.nome;
         token.login = user.login;
       }
       return token;
     },
     async session({ session, token }: { session: Session; token: JWT }) {
+      // Atribuindo os dados do token à sessão
       session.user = {
         id: token.id,
         nome: token.nome,
@@ -60,7 +66,4 @@ export const authOptions: NextAuthOptions  = {
       return session;
     },
   },
-};
-
-// 🔹 Exportação correta do NextAuth
-export const { handlers, signIn, signOut, auth } = NextAuth(authOptions);
+});
