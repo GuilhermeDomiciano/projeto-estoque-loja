@@ -20,5 +20,4 @@ interface User {
     return globalThis.user;
   }
   
-export {user};
   
