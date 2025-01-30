@@ -12,6 +12,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     redirect('/login');
   }
 
+<<<<<<< HEAD
   return (
   
       
@@ -19,6 +20,26 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <SessionProvider>
             <DashboardLayoutBasic>{children}</DashboardLayoutBasic>
             </SessionProvider>
+=======
+export default async function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+    const session = await auth();
+    const user = await getUser()
+  
+    if(!session){
+      redirect('/login');
+    }
+  
+    
+  return (
+    <html lang="en">
+      <body>
+      ID: {user?.id}
+        {children}
+>>>>>>> 3db7c439b5bc0302f02f66db789a6d83a6aad372
       </body>
 
   );

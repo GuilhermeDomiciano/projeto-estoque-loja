@@ -38,7 +38,6 @@ export default class RepositorioEmpresa{
       };
     }
     
-
     static async obterTodasEmpresas(): Promise<Empresa[]> {
       const empresas = await this.db.empresa.findMany({
           include: {

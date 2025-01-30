@@ -39,6 +39,8 @@ export default function FormularioEmpresas(props: FormularioEmpresaProps) {
     }
   }
 
+  
+
   return (
     <div className="w-full max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
       {erro && <p className="text-red-500 mb-4">{erro}</p>}
