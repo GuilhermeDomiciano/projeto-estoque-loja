@@ -14,10 +14,8 @@ export default function Page(){
 
   useEffect(() => {
     Backend.empresas.obterTodas().then(empresas => setEmpresas(empresas || []));
-    Backend.cargos.obterTodos().then(cargos => {
-      console.log("Cargos recebidos:", cargos); 
-      setCargos(cargos || []);
-    });
+    Backend.cargos.obterTodos().then(cargos => 
+      setCargos(cargos || []));
   }, []);
 
   
