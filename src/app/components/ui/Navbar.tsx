@@ -3,7 +3,6 @@ import * as React from 'react';
 import { extendTheme } from '@mui/material/styles';
 import { useRouter } from 'next/navigation';  // Importação correta
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import DescriptionIcon from '@mui/icons-material/Description';
 import LayersIcon from '@mui/icons-material/Layers';
@@ -25,8 +24,7 @@ const NAVIGATION: Navigation = [
   },
   {
     segment: './dashboard/produtos', 
-    title: 'Produtos',
-    icon: <ShoppingCartIcon />,
+    title: 'Produtos'
   },
   {
     kind: 'divider',
