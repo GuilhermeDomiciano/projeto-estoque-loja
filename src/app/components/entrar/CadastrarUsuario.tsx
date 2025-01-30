@@ -88,14 +88,14 @@ export default function CadastrarUsuario() {
               type="submit"
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              Sign up
+              Cadastrar
             </button>
           </div>
         </form>
 
         <p className="mt-10 text-center text-sm text-gray-500">
           Já tem conta?{' '}
-          <a href="../../auth/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
+          <a href="../../entrar" className="font-semibold text-indigo-600 hover:text-indigo-500">
             Faça o login
           </a>
         </p>

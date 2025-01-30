@@ -9,7 +9,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   // Redireciona para login caso o usuário não esteja autenticado
   if (!session) {
-    redirect('/login');
+    redirect('/entrar');
   }
 
   return (
