@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import findUser  from './lib/user';
+import {setUser}  from './lib/usuario';
 
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -15,7 +16,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!user){
           return null
         }
-        return  user;
+        setUser(user);
+        return  {nome:user.nome, login:user.login, id:user.id};
       },
     }),
   ],

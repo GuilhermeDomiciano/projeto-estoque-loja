@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "../../../../auth";
+import { getUser } from "../../../../lib/usuario";
+
 
 export default async function RootLayout({
   children,
@@ -7,6 +9,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
     const session = await auth();
+    const user = await getUser()
   
     if(!session){
       redirect('/login');
@@ -15,6 +18,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
+      Nome: {user?.nome}
         {children}
       </body>
     </html>

@@ -2,8 +2,10 @@
 
 import { useRouter } from "next/navigation";
 
-export default function Page() {
+
+export default  function Page() {
   const router = useRouter();
+  
 
   return (
     <div>
@@ -13,6 +15,7 @@ export default function Page() {
       >
         Cadastrar Empresa
       </button>
+      
     </div>
   );
 }

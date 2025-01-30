@@ -1,6 +1,5 @@
 import db from './db';
 import bcrypt from "bcrypt";
-import { setUser } from './usuario';
 
 interface User {
     id: string;
@@ -28,7 +27,6 @@ export default async function findUser(login: string, senha: string): Promise<Us
 
       if (isPasswordValid) {
         console.log("Login bem-sucedido!");
-        setUser({ id: String(user.id), nome: user.nome, login: user.login });
         return { id: String(user.id), nome: user.nome, login: user.login }; 
       } else {
         console.log("Senha incorreta.");
