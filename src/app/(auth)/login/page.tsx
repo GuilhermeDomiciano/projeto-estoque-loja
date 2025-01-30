@@ -1,9 +1,16 @@
+
 import Login from "@/app/components/login/Login";
 
-export default function Home() {
+// import { auth } from "../../../../auth";
+// import { redirect } from "next/navigation";
+
+
+export default  function Home() {
   return (
     <div>
+
       <Login />
+
     </div>
   );
 }
