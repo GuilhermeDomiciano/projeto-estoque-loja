@@ -6,32 +6,20 @@
     "dev": "next dev --turbopack",
     "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "next lint",
-    "eject": "react-scripts eject",
-    "test": "react-scripts test"
+    "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "latest",
-    "@emotion/styled": "latest",
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
-    "@mui/icons-material": "^6.4.2",
-    "@mui/material": "^6.4.2",
     "@prisma/client": "^6.2.1",
-    "@toolpad/core": "^0.12.0",
-    "@types/react": "latest",
-    "@types/react-dom": "latest",
     "bcrypt": "^5.1.1",
     "bcrypt-ts": "^5.0.3",
-    "next": "^15.1.6",
+    "next": "15.1.6",
     "next-auth": "^5.0.0-beta.25",
     "projeto-loja": "file:",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-icons": "^5.4.0"
+    "react-dom": "^19.0.0"
   },
-  "description": "https://github.com/mui/material-ui/blob/v6.4.2/docs/data/material/components/drawers/../app-bar/DashboardLayoutBasic.tsx",
-  "main": "index.tsx",
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/bcrypt": "^5.0.2",
@@ -39,17 +27,12 @@
     "@types/node": "^20",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19",
-    "esbuild": "^0.24.2",
-    "eslint": "^8.57.1",
+    "eslint": "^9",
     "eslint-config-next": "15.1.6",
     "node-gyp": "^11.0.0",
     "postcss": "^8",
     "prisma": "^6.2.1",
-    "react-scripts": "^5.0.1",
     "tailwindcss": "^3.4.1",
-    "typescript": "^4.9.5"
-  },
-  "engines": {
-    "node": ">=22"
+    "typescript": "^5"
   }
 }
