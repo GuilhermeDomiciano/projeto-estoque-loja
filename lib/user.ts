@@ -1,15 +1,8 @@
 import db from './db';
 import bcrypt from "bcrypt";
+import  {Usuario}  from '../src/backend/interfaces/Usuario';
 
-interface User {
-    id: string;
-    nome: string;
-    login: string;
-}
-
-
-
-export default async function findUser(login: string, senha: string): Promise<User | null> {
+export default async function findUser(login: string, senha: string): Promise<Usuario | null> {
         const user = await db.usuario.findFirst({
         where: { login: login },
         });
@@ -27,7 +20,8 @@ export default async function findUser(login: string, senha: string): Promise<Us
 
       if (isPasswordValid) {
         console.log("Login bem-sucedido!");
-        return { id: String(user.id), nome: user.nome, login: user.login }; 
+        const usuario: Usuario = { id: String(user.id), nome: user.nome, login: user.login };
+        return usuario; 
       } else {
         console.log("Senha incorreta.");
         return null;

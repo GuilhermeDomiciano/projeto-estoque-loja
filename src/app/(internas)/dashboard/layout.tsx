@@ -1,26 +1,25 @@
 import { redirect } from "next/navigation";
 import { auth } from "../../../../auth";
-import { getUser } from "../../../../lib/usuario";
+import { SessionProvider } from "next-auth/react";
+import DashboardLayoutBasic from "@/app/components/ui/Navbar";
 
+// Layout do Dashboard com autenticação
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const session = await auth();
 
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-    const session = await auth();
-    const user = await getUser()
-  
-    if(!session){
-      redirect('/login');
-    }
-  
+  // Redireciona para login caso o usuário não esteja autenticado
+  if (!session) {
+    redirect('/login');
+  }
+
   return (
-    <html lang="en">
-      <body>
-      Nome: {user?.nome}
-        {children}
+  
+      
+      <body >
+            <SessionProvider>
+            <DashboardLayoutBasic>{children}</DashboardLayoutBasic>
+            </SessionProvider>
       </body>
-    </html>
+
   );
 }
