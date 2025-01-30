@@ -13,8 +13,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   }
 
   return (
-  
-      
       <body >
             <SessionProvider>
             <DashboardLayoutBasic>{children}</DashboardLayoutBasic>

@@ -11,12 +11,7 @@ import { AppProvider, Navigation } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { PageContainer } from '@toolpad/core/PageContainer';
 import { useSession, signOut } from 'next-auth/react';
-// import PropTypes from 'prop-types';
-// import Box from '@mui/material/Box';
-// import Typography from '@mui/material/Typography';
-// import { createTheme } from '@mui/material/styles';
 
-// import { useDemoRouter } from '@toolpad/core/internal';
 
 const NAVIGATION: Navigation = [
   {
@@ -24,12 +19,12 @@ const NAVIGATION: Navigation = [
     title: 'Menu',
   },
   {
-    segment: '/dashboard',  // Caminho atualizado
+    segment: '/dashboard',
     title: 'Dashboard',
     icon: <DashboardIcon />,
   },
   {
-    segment: './dashboard/produtos',  // Caminho atualizado
+    segment: './dashboard/produtos', 
     title: 'Produtos',
     icon: <ShoppingCartIcon />,
   },
@@ -79,14 +74,14 @@ const demoTheme = extendTheme({
 });
 
 export default function DashboardLayoutBasic({ children }: { children: React.ReactNode }) {
-  const router = useRouter(); // Agora usa o roteamento do Next.js
+  const router = useRouter(); 
   const { data: us } = useSession();
  
   const session = {
     user: {
       name: useSession().data?.user?.nome,
       email: useSession().data?.user?.login,
-      image: 'https://avatars.githubusercontent.com/u/19550456',
+      image: '/avatar.jpg',
     },
   }
 
@@ -97,7 +92,7 @@ export default function DashboardLayoutBasic({ children }: { children: React.Rea
       signIn: () => {
         session.user.name = us?.user?.nome;
         session.user.email = us?.user?.login;
-        session.user.image = 'https://avatars.githubusercontent.com/u/19550456';
+        session.user.image = '/avatar.jpg';
       },
       signOut: () => {
         signOut();
@@ -115,12 +110,12 @@ export default function DashboardLayoutBasic({ children }: { children: React.Rea
       branding={{
         logo: <img src="https://mui.com/static/logo.png" alt="MUI logo" />,
         title: 'My Shop',
-        homeUrl: '/dashboard',  // Caminho atualizado
+        homeUrl: '/dashboard', 
       }}
       router={{
         pathname: '/',
         searchParams: new URLSearchParams(),
-        navigate: (path: string | URL) => router.push(String(path)), // Agora usa router.push()
+        navigate: (path: string | URL) => router.push(String(path)), 
       }}
     >
       <DashboardLayout
