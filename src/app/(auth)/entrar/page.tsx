@@ -1,9 +1,10 @@
-import Login from "@/app/components/login/Login";
+import Entrar from "@/app/components/entrar/Entrar";
+
 
 export default function Page() {
   return (
     <div>
-      <Login />
+      <Entrar />
     </div>
   );
 }

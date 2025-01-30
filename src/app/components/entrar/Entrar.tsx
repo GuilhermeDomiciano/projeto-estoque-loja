@@ -1,9 +1,10 @@
-import loginAction from "@/app/(auth)/login/login-Action";
-import { auth } from "../../../../auth";
+
 import { redirect } from "next/navigation";
+import { auth } from "../../../../auth";
+import loginAction from "@/app/(auth)/entrar/entrar-Action";
 
 
-export default async function Login() {
+export default async function Entrar() {
   const session = await auth();
 
   if(session){
