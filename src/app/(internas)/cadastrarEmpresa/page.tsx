@@ -13,6 +13,8 @@ export default function Page(){
     Backend.empresas.obterTodas().then(empresas => setEmpresas(empresas || []));
   }, []);
 
+  
+
   return (
     <div>
       <FormularioEmpresas empresas={empresas} setEmpresas={setEmpresas}/>
