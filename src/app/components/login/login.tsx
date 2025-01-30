@@ -1,4 +1,5 @@
-import loginAction from "@/app/(auth)/login/login-Action";
+
+import loginAction from "@/app/components/login/login-Action";
 import { auth } from "../../../../auth";
 import { redirect } from "next/navigation";
 
@@ -13,7 +14,6 @@ export default async function Login() {
   }else{
 
  
-
     return (
       <>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
