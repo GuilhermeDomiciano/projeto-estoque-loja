@@ -8,6 +8,7 @@ interface User {
   login: string;
 }
 
+// Aqui definimos a interface corretamente para o componente receber as props
 interface PageProps {
   user: User;
 }
@@ -15,6 +16,7 @@ interface PageProps {
 export default function Page({ user }: PageProps) {
   const router = useRouter();
 
+  // Função que mostra o ID do usuário
   const verEmpresa = () => {
     console.log("ID do Usuário:", user?.id);
   };
