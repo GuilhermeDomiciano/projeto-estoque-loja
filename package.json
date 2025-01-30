@@ -28,8 +28,7 @@
     "projeto-loja": "file:",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-icons": "^5.4.0",
-    "typescript": "latest"
+    "react-icons": "^5.4.0"
   },
   "description": "https://github.com/mui/material-ui/blob/v6.4.2/docs/data/material/components/drawers/../app-bar/DashboardLayoutBasic.tsx",
   "main": "index.tsx",
@@ -40,15 +39,16 @@
     "@types/node": "^20",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19",
-    "eslint": "^9",
+    "eslint": "^8.57.1",
     "eslint-config-next": "15.1.6",
     "node-gyp": "^11.0.0",
     "postcss": "^8",
     "prisma": "^6.2.1",
-    "react-scripts": "latest",
+    "react-scripts": "^5.0.1",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
-  },"engines": {
-  "node": "16.x"
-}
+    "typescript": "^4.9.5"
+  },
+  "engines": {
+    "node": "16.x"
+  }
 }
