@@ -1,7 +1,7 @@
 
 import { redirect } from "next/navigation";
 import { auth } from "../../../../auth";
-import loginAction from "@/app/(auth)/entrar/entrar-Action";
+import loginAction from "@/core/utils/entrar-Action";
 
 
 export default async function Entrar() {
