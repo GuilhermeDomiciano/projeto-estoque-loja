@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "../../../../auth";
+import { SessionProvider } from "next-auth/react";
 
 export default async function RootLayout({
   children,
@@ -13,10 +14,10 @@ export default async function RootLayout({
     }
   
   return (
-    <html lang="en">
       <body>
-        {children}
+      <SessionProvider session={session}>
+          {children}
+        </SessionProvider>
       </body>
-    </html>
   );
 }

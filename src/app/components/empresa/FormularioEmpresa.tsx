@@ -6,6 +6,7 @@ import { useState } from "react"
 export interface FormularioEmpresaProps {
   empresas: Empresa[]
   setEmpresas: (empresas: Empresa[]) => void
+  usuarioId: number | null// Adicionamos o usuarioId como prop
 }
 
 export default function FormularioEmpresas(props: FormularioEmpresaProps) {
@@ -24,8 +25,12 @@ export default function FormularioEmpresas(props: FormularioEmpresaProps) {
     setLoading(true)
 
     try {
-      // Salvar empresa
-      await Backend.empresas.salvarEmpresa(empresa)
+      // Salvar empresa com o usuarioId
+      if (props.usuarioId !== null) {
+        await Backend.empresas.salvarEmpresa(empresa, props.usuarioId)
+      } else {
+        throw new Error("UsuarioId não pode ser nulo.")
+      }
       const novasEmpresas = await Backend.empresas.obterTodas()
       props.setEmpresas(novasEmpresas || [])
 
@@ -38,8 +43,6 @@ export default function FormularioEmpresas(props: FormularioEmpresaProps) {
       setLoading(false)
     }
   }
-
-  
 
   return (
     <div className="w-full max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">

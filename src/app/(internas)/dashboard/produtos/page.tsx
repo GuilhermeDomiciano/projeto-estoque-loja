@@ -15,7 +15,7 @@ export default function Page(){
 
   return (
     <div>
-      <FormularioEmpresas empresas={empresas} setEmpresas={setEmpresas}/>
+      {/* <FormularioEmpresas empresas={empresas} setEmpresas={setEmpresas}/> */}
       <h1>Lista empresas:</h1>
       <ListarEmpresas empresas={empresas} />
     </div>
