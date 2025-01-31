@@ -1,7 +1,9 @@
 import Entrar from "@/app/components/entrar/Entrar";
 
 
-export default function Page() {
+
+export default async function Page() {
+
   return (
     <div>
       <Entrar />
