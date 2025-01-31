@@ -6,7 +6,7 @@ import { useState } from "react"
 export interface FormularioEmpresaProps {
   empresas: Empresa[]
   setEmpresas: (empresas: Empresa[]) => void
-  usuarioId: number | null// Adicionamos o usuarioId como prop
+  usuarioId: number | null
 }
 
 export default function FormularioEmpresas(props: FormularioEmpresaProps) {
@@ -16,7 +16,7 @@ export default function FormularioEmpresas(props: FormularioEmpresaProps) {
   const router = useRouter()
 
   async function salvarEmpresa() {
-    setErro(null) // Resetar erro anterior
+    setErro(null) 
     if (!empresa?.razao_social?.trim()) {
       setErro("O campo Razão Social é obrigatório.")
       return
@@ -25,7 +25,6 @@ export default function FormularioEmpresas(props: FormularioEmpresaProps) {
     setLoading(true)
 
     try {
-      // Salvar empresa com o usuarioId
       if (props.usuarioId !== null) {
         await Backend.empresas.salvarEmpresa(empresa, props.usuarioId)
       } else {

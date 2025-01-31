@@ -17,7 +17,7 @@ export default  function Page() {
       </button>
 
       <hr />
-
+      
       {session?.user?.nome} - {session?.empresa?.razao_social}
     </div>
   );
