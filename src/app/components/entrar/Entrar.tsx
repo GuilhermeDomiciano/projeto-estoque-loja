@@ -1,34 +1,38 @@
 'use client';
 
-import { FormEvent, useEffect,  } from "react";
+import { FormEvent, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react"; // Importe o hook useSession
-import loginAction from "@/core/utils/entrar-Action";
-
+import { useSession, signIn } from "next-auth/react";
 
 export default function Entrar() {
-  const { data: session } = useSession(); // Utilize o hook useSession para obter a sessão
+  const { data: session } = useSession();
   const router = useRouter();
 
-  // Redireciona o usuário se já estiver autenticado
   useEffect(() => {
     if (session?.user) {
       router.push("/entrar_empresa");
     }
   }, [session, router]);
 
-  // Função para lidar com o envio do formulário
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-
+    
+    const formData = new FormData(event.currentTarget);
+    
     try {
-      await loginAction(formData);
-      router.push("/entrar_empresa");
+      const result = await signIn('user-login', {
+        redirect: false,
+        username: formData.get('username') as string,
+        password: formData.get('password') as string,
+      });
+
+      if (result?.error) {
+        throw new Error(result.error);
+      }
+
+      router.refresh(); // Atualiza a sessão
     } catch (error) {
-      alert("Erro ao cadastrar o usuário.");
+      alert("Erro ao realizar login!");
       console.error(error);
     }
   };
