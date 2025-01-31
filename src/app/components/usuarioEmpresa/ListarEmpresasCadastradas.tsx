@@ -3,17 +3,18 @@
 import Backend from "@/backend";
 import { Empresa } from "@/core/model/Empresa";
 import { UsuarioEmpresa } from "@/core/model/UsuarioEmpresa";
+import { Cargo } from "@/core/model/Cargo";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-interface ListarEmpresasCadastradasProps{
+interface ListarEmpresasCadastradasProps {
   userId: number;
 }
 
-export default function ListarEmpresasCadastradas({userId}: ListarEmpresasCadastradasProps){
+export default function ListarEmpresasCadastradas({ userId }: ListarEmpresasCadastradasProps) {
   const router = useRouter();
-  const [empresas, setEmpresas] = useState<(Empresa & {cargo: string})[]>([]);
-  
+  const [empresas, setEmpresas] = useState<(Empresa & { cargo: string })[]>([]);
+
   useEffect(() => {
     async function fetchEmpresas() {
       if (!userId) return;
@@ -22,11 +23,14 @@ export default function ListarEmpresasCadastradas({userId}: ListarEmpresasCadast
         const usuarioEmpresas: UsuarioEmpresa[] = await Backend.usuarioEmpresa.obterTodosUsuarioEmpresas();
         const empresasDoUsuario = usuarioEmpresas.filter(ue => ue.usuario_id === userId);
 
+        const cargos: Cargo[] = await Backend.cargos.obterTodos(); // Obtém todos os cargos
+
         const empresasDetalhes = await Promise.all(empresasDoUsuario.map(async (ue) => {
-          const empresa = await Backend.empresas.obterTodas();
-          const empresaEncontrada = empresa.find(e => e.id === ue.empresa_id);
-          
-          return empresaEncontrada ? { ...empresaEncontrada, cargo: ue.cargo_id.toString() } : null;
+          const todasEmpresas = await Backend.empresas.obterTodas();
+          const empresaEncontrada = todasEmpresas.find(e => e.id === ue.empresa_id);
+          const cargoNome = cargos.find(c => c.id === ue.cargo_id)?.nome || "Desconhecido";
+
+          return empresaEncontrada ? { ...empresaEncontrada, cargo: cargoNome } : null;
         }));
 
         setEmpresas(empresasDetalhes.filter(Boolean) as (Empresa & { cargo: string })[]);
@@ -34,6 +38,7 @@ export default function ListarEmpresasCadastradas({userId}: ListarEmpresasCadast
         console.error("Erro ao buscar empresas:", error);
       }
     }
+    
     fetchEmpresas();
   }, [userId]);
 
