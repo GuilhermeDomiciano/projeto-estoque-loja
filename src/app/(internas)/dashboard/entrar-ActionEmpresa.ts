@@ -2,10 +2,10 @@
 
 import { signIn } from '../../../../auth';
 
-export default async function loginAction(id: string) {
+export default async function loginAction(id: string, idEmpresa: string) {
   try {
     const empresaFormData = new FormData();
-    empresaFormData.append("id", "10"); // ID da empresa
+    empresaFormData.append("id", idEmpresa); // ID da empresa
     empresaFormData.append("userId", id); // ID do usuário
 
     await signIn('empresa-login', empresaFormData);  
