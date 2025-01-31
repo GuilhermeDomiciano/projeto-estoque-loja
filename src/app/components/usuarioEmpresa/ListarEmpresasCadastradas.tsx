@@ -3,7 +3,7 @@
 import Backend from "@/backend";
 import { Empresa } from "@/core/model/Empresa";
 import { UsuarioEmpresa } from "@/core/model/UsuarioEmpresa";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface ListarEmpresasCadastradasProps{
