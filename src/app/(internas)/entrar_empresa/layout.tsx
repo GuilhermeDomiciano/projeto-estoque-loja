@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "../../../../auth";
 import { SessionProvider } from "next-auth/react";
+import DashboardLayoutBasic from "@/app/components/ui/Navbar";
 
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -12,11 +13,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   } 
 
   return (
-      <body >
-            <SessionProvider>
-           {children}
-            </SessionProvider>
-      </body>
-
+    <body>
+      <SessionProvider session={session}>
+      <DashboardLayoutBasic>
+        {children}
+      </DashboardLayoutBasic>
+      </SessionProvider>
+    </body>
   );
 }
