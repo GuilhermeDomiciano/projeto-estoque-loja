@@ -3,7 +3,9 @@ import { UsuarioEmpresa } from "@/core/model/UsuarioEmpresa";
 
 export default class RepositorioUsuarioEmpresa {
     private static db: PrismaClient = new PrismaClient();
-  static salvarUsuarioEmpresa: any;
+
+    // Define the type for salvarUsuarioEmpresa
+    static salvarUsuarioEmpresa: (usuarioEmpresa: Omit<UsuarioEmpresa, 'id'>) => Promise<UsuarioEmpresa>;
 
     static async obterTodosUsuarioEmpresas(): Promise<UsuarioEmpresa[]> {
         const UsuarioEmpresa = await this.db.usuarioEmpresa.findMany({
