@@ -94,6 +94,7 @@ export default function DashboardLayoutBasic({ children }: { children: React.Rea
       },
       signOut: () => {
         signOut();
+        router.push('/entrar');
       },
     };
   }, []);

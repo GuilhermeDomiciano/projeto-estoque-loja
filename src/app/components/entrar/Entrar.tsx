@@ -7,9 +7,11 @@ import loginAction from "@/core/utils/entrar-Action";
 export default async function Entrar() {
   const session = await auth();
 
-  if(session){
-    return redirect('/dashboard');
-  }else{
+  if(session?.user){
+    redirect('/entrar_empresa');
+  } 
+  
+  else{
 
  
     return (
