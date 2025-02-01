@@ -7,10 +7,8 @@ export interface LinhaempresaProps{
 
 export default function ListaEmpresa(props: LinhaempresaProps){
     return(
-        <div>
-            <div>
-                <span>{props.empresa.razao_social} - {props.empresa.cnpj} - {props.empresa.telefone}</span>
-            </div>
-        </div>
+      <div>
+          <span>{props.empresa.razao_social} - {props.empresa.cnpj} - {props.empresa.telefone}</span>
+      </div>
     )
 }
