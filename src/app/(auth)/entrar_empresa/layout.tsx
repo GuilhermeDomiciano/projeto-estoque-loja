@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "../../../../auth";
 import { SessionProvider } from "next-auth/react";
-import DashboardLayoutSidebarHidden from '../../components/ui/Template'
+import DashboardLayoutSidebarHidden from '../../../components/ui/Template'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();

@@ -1,6 +1,6 @@
 "use client";
 
-import ListarEmpresasCadastradas from "@/app/components/usuarioEmpresa/ListarEmpresasCadastradas";
+import ListarEmpresasCadastradas from "@/components/usuarioEmpresa/ListarEmpresasCadastradas";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
