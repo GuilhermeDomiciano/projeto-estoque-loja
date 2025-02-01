@@ -14,6 +14,7 @@ export default class RepositorioProduto{
     return produtos.map(produto =>({
       ...produto,
       id: Number(produto.id),
+      produto: true,
       variacoes: produto.variacoes.map((variacao: any) => variacao.id),
       itens_kits: produto.itens_kits.map((item_kit: any) => item_kit.id),
     }));
