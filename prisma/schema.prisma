@@ -108,7 +108,7 @@ model Lote {
   itens        Itens_lote[]
   variacao     Variacao[]
   itens_pedido Itens_pedido[]
-  createdAt    DateTime @default(now())
+  createdAt    DateTime @default(now())   
 }
 
 model Itens_lote {
@@ -117,7 +117,8 @@ model Itens_lote {
   lote_id      Int
   qt           Int
   preco_compra Decimal
-  preco_venda  Decimal
+  fornecedor_id Int
+  fornecedor Fornecedor @relation (fields: [fornecedor_id], references: [id])
   variacao     Variacao @relation(fields: [variacao_id], references: [id])
   lote         Lote     @relation(fields: [lote_id], references: [id])
   createdAt    DateTime @default(now())
@@ -191,4 +192,13 @@ model Status {
   cor       String?
   pedidos   Pedido[]
   createdAt DateTime @default(now())
+}
+
+model Fornecedor {
+  id             Int       @id @default(autoincrement())
+  cnpj           String?   @unique
+  razao_social   String
+  telefone       String?
+  endereco       String?
+  Itens_lote Itens_lote[]
 }

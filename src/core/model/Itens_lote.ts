@@ -4,5 +4,5 @@ export interface Itens_lote {
   lote_id: number;
   qt: number;
   preco_compra: number;
-  preco_venda: number;
+  fornecedor_id: number;
 }
