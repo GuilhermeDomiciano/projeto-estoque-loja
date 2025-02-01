@@ -61,9 +61,6 @@ export default function Entrar() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          {errorMessage && (
-            <div className="mb-4 text-center text-sm text-red-600">{errorMessage}</div>
-          )}
           
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -103,6 +100,10 @@ export default function Entrar() {
                 />
               </div>
             </div>
+
+            {errorMessage && (
+              <div className="mb-4 text-center text-sm text-red-600">{errorMessage}</div>
+            )}
 
             <div>
               <button
