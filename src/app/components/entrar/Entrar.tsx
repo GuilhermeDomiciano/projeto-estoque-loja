@@ -1,12 +1,13 @@
 'use client';
 
-import { FormEvent, useEffect } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession, signIn } from "next-auth/react";
 
 export default function Entrar() {
   const { data: session } = useSession();
   const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (session?.user) {
@@ -16,6 +17,7 @@ export default function Entrar() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setErrorMessage("");
     
     const formData = new FormData(event.currentTarget);
     
@@ -27,12 +29,19 @@ export default function Entrar() {
       });
 
       if (result?.error) {
-        throw new Error(result.error);
+        if (result.error.includes("CredentialsSignin")) {
+          setErrorMessage("Usuário ou senha inválidos. Verifique os dados e tente novamente.");
+        } else if (result.error.includes("UserNotFound")) {
+          setErrorMessage("Usuário não encontrado. Verifique o nome de usuário.");
+        } else {
+          setErrorMessage("Erro ao realizar login. Tente novamente mais tarde.");
+        }
+        return;
       }
-
+      
       router.refresh(); // Atualiza a sessão
     } catch (error) {
-      alert("Erro ao realizar login!");
+      setErrorMessage("Erro inesperado ao tentar fazer login.");
       console.error(error);
     }
   };
@@ -52,6 +61,10 @@ export default function Entrar() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          {errorMessage && (
+            <div className="mb-4 text-center text-sm text-red-600">{errorMessage}</div>
+          )}
+          
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="username" className="block text-sm/6 font-medium text-gray-900">

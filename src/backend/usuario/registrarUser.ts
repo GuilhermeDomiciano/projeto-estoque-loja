@@ -3,21 +3,26 @@
 import { hashSync } from 'bcrypt-ts';
 import db from '../../../lib/db';
 
-export async function registrarUsuario(nome: string, login: string, senha: string, email: string): Promise<void> {
+export async function registrarUsuario(nome: string, login: string, senha: string, email: string): Promise<string | void> {
   if (!nome || !login || !senha || !email) {
-    console.error('Preencha todos os campos obrigatórios.');
-    return;
+    return "Preencha todos os campos obrigatórios.";
   }
 
   try {
-    // Verificar se o usuário já existe
     const usuarioExistente = await db.usuario.findFirst({
       where: { login },
     });
 
     if (usuarioExistente) {
-      console.error('Usuário já existe.');
-      return;
+      return "Usuário já existe.";
+    }
+
+    const emailExistente = await db.usuario.findFirst({
+      where: { email },
+    });
+
+    if (emailExistente) {
+      return "Email já está em uso.";
     }
 
     // Hashear a senha
@@ -36,6 +41,7 @@ export async function registrarUsuario(nome: string, login: string, senha: strin
     console.log('Usuário criado com sucesso.');
   } catch (error) {
     console.error('Erro ao criar usuário:', error);
+    return "Erro ao criar usuário.";
   } finally {
     await db.$disconnect();
   }

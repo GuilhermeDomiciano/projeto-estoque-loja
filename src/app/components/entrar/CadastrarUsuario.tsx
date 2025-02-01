@@ -1,10 +1,14 @@
 "use client"; // Marca este componente como um Client Component
 
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { registrarUsuario } from "@/backend/usuario/registrarUser"; // Importe a função diretamente
-
+import { validarSenha } from "./ValidarSenha";
+import { useRouter } from "next/navigation";
 
 export default function CadastrarUsuario() {
+  const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -14,13 +18,33 @@ export default function CadastrarUsuario() {
     const nome = formData.get("nome")?.toString() ?? "";
     const login = formData.get("username")?.toString() ?? "";
     const senha = formData.get("password")?.toString() ?? "";
+    const confirmarSenha = formData.get("confirmarSenha")?.toString() ?? "";
     const email = formData.get("email")?.toString() ?? "";
 
+    const validacaoSenha = validarSenha(senha);
+    if (!validacaoSenha.valida){
+      setErrorMessage(validacaoSenha.mensagem || "Senha inválida");
+      return;
+    }
+
+    if (senha !== confirmarSenha) {
+      setErrorMessage("As senhas não coincidem.");
+      return;
+    }
+
     try {
-      await registrarUsuario(nome, login, senha, email);
-      alert("Usuário cadastrado com sucesso!");
+      const response = await registrarUsuario(nome, login, senha, email);
+      if (response === "Usuário já existe.") {
+        setErrorMessage("Nome de usuário já está em uso.");
+      } else if (response === "Email já está em uso.") {
+        setErrorMessage("Email já está em uso.");
+      } else {
+        alert("Usuário cadastrado com sucesso!");
+        setErrorMessage("");
+        router.push("/entrar")
+      }
     } catch (error) {
-      alert("Erro ao cadastrar o usuário.");
+      setErrorMessage("Erro ao cadastrar o usuário.");
       console.error(error);
     }
   };
@@ -39,6 +63,9 @@ export default function CadastrarUsuario() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        {errorMessage && (
+          <div className="mb-4 text-center text-sm text-red-600">{errorMessage}</div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="nome" className="block text-sm font-medium text-gray-900">
@@ -93,6 +120,21 @@ export default function CadastrarUsuario() {
               <input
                 id="password"
                 name="password"
+                type="password"
+                required
+                className="block w-full rounded-md bg-gray-100 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="confirmarSenha" className="block text-sm font-medium text-gray-900">
+              Confirmar Senha
+            </label>
+            <div className="mt-2">
+              <input
+                id="confirmarSenha"
+                name="confirmarSenha"
                 type="password"
                 required
                 className="block w-full rounded-md bg-gray-100 px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
