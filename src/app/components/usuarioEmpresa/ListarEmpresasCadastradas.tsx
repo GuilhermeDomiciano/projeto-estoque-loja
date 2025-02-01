@@ -6,6 +6,7 @@ import { UsuarioEmpresa } from "@/core/model/UsuarioEmpresa";
 import { Cargo } from "@/core/model/Cargo";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import loginAction from "@/core/utils/entrar-ActionEmpresa";
 
 interface ListarEmpresasCadastradasProps {
   userId: number;
@@ -14,23 +15,23 @@ interface ListarEmpresasCadastradasProps {
 export default function ListarEmpresasCadastradas({ userId }: ListarEmpresasCadastradasProps) {
   const router = useRouter();
   const [empresas, setEmpresas] = useState<(Empresa & { cargo: string })[]>([]);
-  const [loading, setLoading] = useState(true); // Estado para carregamento
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     async function fetchEmpresas() {
       if (!userId) return;
 
       try {
-        setLoading(true); // Define o estado como carregando
+        setLoading(true); 
         const usuarioEmpresas: UsuarioEmpresa[] = await Backend.usuarioEmpresa.obterTodosUsuarioEmpresas();
         const empresasDoUsuario = usuarioEmpresas.filter(ue => ue.usuario_id === userId);
 
-        const cargos: Cargo[] = await Backend.cargos.obterTodos(); // Obtém todos os cargos
+        const cargos: Cargo[] = await Backend.cargos.obterTodos(); 
 
         const empresasDetalhes = await Promise.all(empresasDoUsuario.map(async (ue) => {
           const todasEmpresas = await Backend.empresas.obterTodas();
           const empresaEncontrada = todasEmpresas.find(e => e.id === ue.empresa_id);
-          const cargoNome = cargos.find(c => c.id === ue.cargo_id)?.nome || "Desconhecido";
+          const cargoNome = cargos.find(c => c.id === ue.cargo_id)?.nome || "Desconhecido";       
 
           return empresaEncontrada ? { ...empresaEncontrada, cargo: cargoNome } : null;
         }));
@@ -39,12 +40,21 @@ export default function ListarEmpresasCadastradas({ userId }: ListarEmpresasCada
       } catch (error) {
         console.error("Erro ao buscar empresas:", error);
       } finally {
-        setLoading(false); // Finaliza o carregamento
+        setLoading(false); 
       }
     }
 
     fetchEmpresas();
   }, [userId]);
+
+  async function handleEmpresaClick(empresaId: number){
+    try {
+      await loginAction(userId.toString(), empresaId.toString());
+      router.push(`/dashboard`);
+    } catch (error){
+      console.error("Erro ao fazer login na empresa:", error);
+    }
+  }
 
   return (
     <div className="flex flex-col items-center">
@@ -58,7 +68,7 @@ export default function ListarEmpresasCadastradas({ userId }: ListarEmpresasCada
             <div
               key={empresa.id}
               className="p-4 border rounded-lg shadow cursor-pointer w-64 bg-white hover:shadow-lg transition"
-              onClick={() => router.push(`/empresa/${empresa.id}`)}
+              onClick={() => handleEmpresaClick(empresa.id)} // Chama a função ao clicar
             >
               <h2 className="text-lg font-bold">{empresa.razao_social}</h2>
               {empresa.cnpj && <p><strong>CNPJ:</strong> {empresa.cnpj}</p>}
