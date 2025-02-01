@@ -9,7 +9,6 @@ export default  function Page() {
   const router = useRouter();
   const { data: session } = useSession();
   const userId = Number(session?.user?.id)
-  const empresaUser = session?.user?.empresa
 
   return (
     <div>
