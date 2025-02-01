@@ -3,6 +3,7 @@
 import { FormEvent } from "react";
 import { registrarUsuario } from "@/backend/usuario/registrarUser"; // Importe a função diretamente
 
+
 export default function CadastrarUsuario() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

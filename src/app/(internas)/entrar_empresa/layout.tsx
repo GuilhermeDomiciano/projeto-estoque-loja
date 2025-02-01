@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "../../../../auth";
 import { SessionProvider } from "next-auth/react";
+import DashboardLayoutSidebarHidden from '../../components/ui/Template'
 
 
 
@@ -15,8 +16,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <body>
       <SessionProvider session={session}>
-
-        {children}
+    <DashboardLayoutSidebarHidden>
+        {children}</DashboardLayoutSidebarHidden>
 
       </SessionProvider>
     </body>
