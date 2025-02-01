@@ -3,8 +3,8 @@
 import { hashSync } from 'bcrypt-ts';
 import db from '../../../lib/db';
 
-export async function registrarUsuario(nome: string, login: string, senha: string): Promise<void> {
-  if (!nome || !login || !senha) {
+export async function registrarUsuario(nome: string, login: string, senha: string, email: string): Promise<void> {
+  if (!nome || !login || !senha || !email) {
     console.error('Preencha todos os campos obrigatórios.');
     return;
   }
@@ -29,6 +29,7 @@ export async function registrarUsuario(nome: string, login: string, senha: strin
         nome,
         login,
         senha: hashedPassword,
+        email
       },
     });
 

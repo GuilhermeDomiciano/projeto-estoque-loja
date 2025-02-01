@@ -14,9 +14,10 @@ export default function CadastrarUsuario() {
     const nome = formData.get("nome")?.toString() ?? "";
     const login = formData.get("username")?.toString() ?? "";
     const senha = formData.get("password")?.toString() ?? "";
+    const email = formData.get("email")?.toString() ?? "";
 
     try {
-      await registrarUsuario(nome, login, senha);
+      await registrarUsuario(nome, login, senha, email);
       alert("Usuário cadastrado com sucesso!");
     } catch (error) {
       alert("Erro ao cadastrar o usuário.");
@@ -63,6 +64,21 @@ export default function CadastrarUsuario() {
                 id="username"
                 name="username"
                 type="text"
+                required
+                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-900">
+              Email
+            </label>
+            <div className="mt-2">
+              <input
+                id="email"
+                name="email"
+                type="email"
                 required
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
               />
