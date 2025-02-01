@@ -1,8 +1,8 @@
 
-import Login from "./components/entrar/Entrar";
+import Inicio from "./components/template/FaceSystem";
 
 export default function Home() {
   return (
-    <Login />
+    <Inicio />
   );
 }

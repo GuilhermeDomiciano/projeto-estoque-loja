@@ -84,7 +84,7 @@ export default function Entrar() {
                   Senha
                 </label>
                 <div className="text-sm">
-                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                  <a href="entrar/senha" className="font-semibold text-indigo-600 hover:text-indigo-500">
                     Esqueceu a senha?
                   </a>
                 </div>

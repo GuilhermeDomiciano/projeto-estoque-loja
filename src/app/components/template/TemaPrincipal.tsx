@@ -3,13 +3,15 @@ import * as React from 'react';
 import { extendTheme } from '@mui/material/styles';
 import { useRouter } from 'next/navigation';  // Importação correta
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import DescriptionIcon from '@mui/icons-material/Description';
-import LayersIcon from '@mui/icons-material/Layers';
+// import BarChartIcon from '@mui/icons-material/BarChart';
+// import DescriptionIcon from '@mui/icons-material/Description';
+//import LayersIcon from '@mui/icons-material/Layers';
 import { AppProvider, Navigation } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { PageContainer } from '@toolpad/core/PageContainer';
 import { useSession, signOut } from 'next-auth/react';
+// import { Account } from '@toolpad/core/Account';
+// import CustomMenu from './CustomMenu';
 
 
 const NAVIGATION: Navigation = [
@@ -18,43 +20,56 @@ const NAVIGATION: Navigation = [
     title: 'Menu',
   },
   {
-    segment: '/dashboard',
-    title: 'Dashboard',
+    segment: './home',
+    title: 'Página Inicial',
     icon: <DashboardIcon />,
-  },
-  {
-    segment: './dashboard/produtos', 
-    title: 'Produtos'
   },
   {
     kind: 'divider',
   },
   {
     kind: 'header',
-    title: 'Analytics',
+    title: 'Gerenciamento',
   },
   {
-    segment: '/reports',
-    title: 'Reports',
-    icon: <BarChartIcon />,
-    children: [
-      {
-        segment: '/reports/sales',
-        title: 'Sales',
-        icon: <DescriptionIcon />,
-      },
-      {
-        segment: '/reports/traffic',
-        title: 'Traffic',
-        icon: <DescriptionIcon />,
-      },
-    ],
+    segment: './entradasaida', 
+    title: 'Entrada e Saída'
+  },
+  
+
+  {
+    kind: 'divider',
   },
   {
-    segment: '/integrations',
-    title: 'Integrations',
-    icon: <LayersIcon />,
+    kind: 'header',
+    title: 'Cadastros',
   },
+  {
+    segment: './produtos', 
+    title: 'Catálogo'
+  },
+  {
+    segment: './clientes', 
+    title: 'Clientes'
+  },
+  // {
+  //   segment: '/reports',
+  //   title: 'Reports',
+  //   icon: <BarChartIcon />,
+  //   children: [
+  //     {
+  //       segment: '/reports/sales',
+  //       title: 'Sales',
+  //       icon: <DescriptionIcon />,
+  //     },
+  //     {
+  //       segment: '/reports/traffic',
+  //       title: 'Traffic',
+  //       icon: <DescriptionIcon />,
+  //     },
+  //   ],
+  // },
+  
 ];
 
 const demoTheme = extendTheme({
@@ -83,6 +98,8 @@ export default function DashboardLayoutBasic({ children }: { children: React.Rea
     },
   }
 
+  
+
 
 
   const authentication = React.useMemo(() => {
@@ -100,6 +117,7 @@ export default function DashboardLayoutBasic({ children }: { children: React.Rea
   }, []);
 
 
+
   return (
     <AppProvider
     session={session}
@@ -109,7 +127,7 @@ export default function DashboardLayoutBasic({ children }: { children: React.Rea
       branding={{
         logo: <img src="https://mui.com/static/logo.png" alt="MUI logo" />,
         title: 'My Shop',
-        homeUrl: '/dashboard', 
+        homeUrl: '/home', 
       }}
       router={{
         pathname: '/',

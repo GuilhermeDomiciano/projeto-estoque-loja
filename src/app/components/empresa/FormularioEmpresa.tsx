@@ -34,7 +34,7 @@ export default function FormularioEmpresas(props: FormularioEmpresaProps) {
       props.setEmpresas(novasEmpresas || [])
 
       setEmpresa({})
-      router.push("/dashboard")
+      router.push("/home")
     } catch (error) {
       console.error("Erro ao salvar empresa:", error)
       setErro("Ocorreu um erro ao salvar a empresa. Tente novamente.")

@@ -50,7 +50,7 @@ export default function ListarEmpresasCadastradas({ userId }: ListarEmpresasCada
   async function handleEmpresaClick(empresaId: number){
     try {
       await loginAction(userId.toString(), empresaId.toString());
-      router.push(`/dashboard`);
+      router.push(`/home`);
     } catch (error){
       console.error("Erro ao fazer login na empresa:", error);
     }

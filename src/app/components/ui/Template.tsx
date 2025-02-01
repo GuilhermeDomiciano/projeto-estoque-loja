@@ -64,7 +64,7 @@ export default function DashboardLayoutSidebarHidden({ children }: { children: R
           branding={{
             logo: <img src="https://mui.com/static/logo.png" alt="MUI logo" />,
             title: 'My Shop',
-            homeUrl: '/dashboard', 
+            homeUrl: '/home', 
           }}
           router={{
             pathname: '/',
