@@ -14,8 +14,10 @@ const CadastroForm = ({
 
   const [message, setMessage] = useState<string | null>(null);
   const [selectedOption, setSelectedOption] = useState(""); // Estado para armazenar a opção selecionada
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    setLoading(true)
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     console.log("Formulario enviado");
@@ -32,7 +34,8 @@ const CadastroForm = ({
     handleSave(formObject);
 
     setMessage(`Formulário enviado com sucesso! Dados: ${JSON.stringify(formObject)}`);
-    setTimeout(() => setMessage(null), 3000);
+    setLoading(false)
+    
   };
 
   return (
@@ -105,12 +108,46 @@ const CadastroForm = ({
         >
           Fechar
         </button>
+
+
         <button
-          type="submit"
-          className="bg-blue-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-blue-700"
-        >
-          Salvar
-        </button>
+            type="submit"
+            disabled={loading}
+            className={` py-2 px-4 rounded-md font-semibold transition-all   ${
+              loading
+                ? "bg-gray-400 text-gray-700 cursor-not-allowed"
+                : "bg-blue-600 text-white hover:bg-blue-700"
+            }`}
+          >
+            {loading ? (
+              <span className="flex items-center justify-center">
+                <svg
+                  className="animate-spin h-5 w-5 mr-2 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4l3-3m-3 3l-3-3m7 3h4a8 8 0 01-8 8v-4l-3 3m3-3l3 3"
+                  ></path>
+                </svg>
+                Salvando...
+              </span>
+            ) : (
+              "Salvar Produto"
+            )}
+          </button>
+
       </div>
     </form>
   );

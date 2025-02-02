@@ -44,7 +44,7 @@ export default function Modal({
             <Dialog.Panel
               className={`w-full ${width} rounded-lg bg-white p-6 shadow-xl flex flex-col`}
             >
-              <div className="flex-grow mb-6">{children}</div>
+              <div className="flex-grow ">{children}</div>
           
             </Dialog.Panel>
           </Transition.Child>
