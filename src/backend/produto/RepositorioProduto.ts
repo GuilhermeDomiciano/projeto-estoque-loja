@@ -1,4 +1,3 @@
-import { Itens_kit } from './../../core/model/Itens_kit';
 import { Produto } from "@/core/model/Produto";
 import { PrismaClient } from "@prisma/client";
 
