@@ -42,7 +42,7 @@ const NAVIGATION: Navigation = [
     title: 'Cadastros',
   },
   {
-    segment: './produtos', 
+    segment: './catalogo', 
     title: 'Catálogo'
   },
   {
