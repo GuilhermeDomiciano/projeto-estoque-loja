@@ -18,7 +18,7 @@ export default function Page() {
   const [usuarioEmpresas, setUsuarioEmpresas] = useState<UsuarioEmpresa[]>([]);
   const { data: session } = useSession();
   const user = session?.user;
-  const usuarioId = user?.id ? Number(user.id) : null; // Convertemos para número
+  const usuarioId = user?.id ? Number(user.id) : null; 
 
   useEffect(() => {
     Backend.empresas.obterTodas().then(empresas => setEmpresas(empresas || []));
@@ -28,15 +28,7 @@ export default function Page() {
 
   return (
     <div>
-      {/* Passamos o usuarioId como prop */}
       <FormularioEmpresas empresas={empresas} setEmpresas={setEmpresas} usuarioId={usuarioId} />
-      <h1>Lista empresas:</h1>
-      <ListarEmpresas empresas={empresas} />
-      <h1>Lista cargos:</h1>
-      <ListarCargos cargos={cargos} />
-      <h1>Lista UsuarioEmpresa</h1>
-      <ListarUsuarioEmpresa usuarioEmpresas={usuarioEmpresas} />
-      {usuarioId}
     </div>
   );
 }
