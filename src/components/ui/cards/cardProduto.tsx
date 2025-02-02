@@ -12,7 +12,7 @@ interface prop {
 
 function ProductCard({ id, nome, valor, marca, imagem, onEdit, onDelete }: prop) {
   return (
-    <div className="max-w-xl sm:w-[130px] md:w-[170px] lg:w-[200px] xl:w-[250px] max-h-xl sm:h-[190px] md:h-[230px] lg:h-[200px] xl:h-[310px] rounded-lg border border-gray-200 bg-white shadow-md">
+    <div className="max-w-xl sm:w-[130px] md:w-[150px] lg:w-[180px] xl:w-[250px] rounded-lg border border-gray-200 bg-white shadow-md">
       <img
         src={imagem}
         alt={nome}
