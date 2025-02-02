@@ -32,5 +32,6 @@ export default function App() {
         <CadastroForm  handleSave={handleSave} onClose={handleCloseModal} />
       </Modal>
     </div>
+    
   );
 }
