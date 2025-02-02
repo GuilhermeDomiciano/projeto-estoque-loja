@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Modal from "../../../components/ui/Modal";
 import CadastroForm from "../../../components/forms/FormProduto";
+import TabsComponent from '../../../components/ui/NavInterno';
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,7 +25,7 @@ export default function App() {
     console.error("Formulário enviado com os dados:", data);
   };
 
-  return (
+  const TabContent1 = () => (
     <div>
       {!isMobile && (
         <button
@@ -44,4 +45,45 @@ export default function App() {
       )}
     </div>
   );
-}
+
+  const TabContent2 = () => (
+    <div>
+      <h2>Conteúdo da Aba 2</h2>
+      <p>Este é o conteúdo da segunda aba.</p>
+    </div>
+  );
+  
+  const TabContent3 = () => (
+    <div>
+      <h2>Conteúdo da Aba 3</h2>
+      <p>Este é o conteúdo da terceira aba.</p>
+    </div>
+  );
+  const TabContent4 = () => (
+    <div>
+      <h2>Conteúdo da Aba 3</h2>
+      <p>Este é o conteúdo da terceira aba.</p>
+    </div>
+  );
+
+  
+    const tabsData = {
+      "Produtos": <TabContent1 />,
+      "Fornecedores": <TabContent2 />,
+      "Marcas": <TabContent3 />,
+      "Variações": <TabContent4 />,
+    };
+  
+    return <TabsComponent tabsData={tabsData} />;
+  };
+
+
+
+
+
+
+
+
+
+
+
