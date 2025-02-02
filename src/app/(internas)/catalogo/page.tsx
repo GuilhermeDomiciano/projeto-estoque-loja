@@ -1,36 +1,36 @@
 'use client'
 import { useState } from "react";
-import Modal from "../../../components/ui/FormsModal";
+import Modal from "../../../components/ui/Modal";
+import CadastroForm from "../../../components/forms/FormCadastro";
 
-export default function Exemplo() {
-  const [isModalOpen, setModalOpen] = useState(false);
+export default function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleSave = () => {
-    console.log("Salvando...");
-    setModalOpen(false); // Fecha o modal após salvar
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
+
+  const handleSave = (data: Record<string, string>) => {
+    console.error("Formulário enviado com os dados:", data);
+    // Lógica de salvar os dados
+   //handleCloseModal(); // Fechar o modal após salvar
   };
+
 
   return (
     <div>
       <button
-        onClick={() => setModalOpen(true)}
-        className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-500"
+        onClick={handleOpenModal}
+        className="px-4 py-2 bg-blue-600 text-white rounded-md"
       >
-        Abrir Modal
+        Abrir Modal de Cadastro
       </button>
-      
+
       <Modal
         isOpen={isModalOpen}
-        onClose={() => setModalOpen(false)}
-        onSave={handleSave}
-        saveButtonText="Salvar"
-        width="max-w-lg" // largura personalizada
+        onClose={handleCloseModal}
       >
-        
-      <h2 className="text-xl font-bold">Conteúdo do Modal</h2>
-        <p>Este é o conteúdo do modal. Você pode adicionar o que desejar aqui.</p>
+        <CadastroForm  handleSave={handleSave} onClose={handleCloseModal} />
       </Modal>
-
     </div>
   );
 }

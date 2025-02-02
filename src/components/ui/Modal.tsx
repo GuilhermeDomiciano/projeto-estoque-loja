@@ -8,9 +8,6 @@ interface ModalProps {
   onClose: () => void;
   children: React.ReactNode;
   width?: string; // Largura customizada
-  onSave: () => void; // Função de salvar personalizada
-  saveButtonText: string; // Texto personalizado para o botão de salvar
-  
 }
 
 export default function Modal({
@@ -18,8 +15,6 @@ export default function Modal({
   onClose,
   children,
   width = "max-w-md", // Largura padrão
-  onSave,
-  saveButtonText,
 }: ModalProps) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -50,20 +45,7 @@ export default function Modal({
               className={`w-full ${width} rounded-lg bg-white p-6 shadow-xl flex flex-col`}
             >
               <div className="flex-grow mb-6">{children}</div>
-              <div className="flex justify-between mt-auto">
-                <button
-                  onClick={onClose}
-                  className="w-1/5 rounded-lg bg-gray-800 px-2 py-[7px] text-white hover:bg-gray-700"
-                >
-                  Fechar
-                </button>
-                <button
-                  onClick={onSave}
-                  className="w-1/5 rounded-lg bg-blue-600 px-2 py-[7px] text-white hover:bg-blue-500"
-                >
-                  {saveButtonText}
-                </button>
-              </div>
+          
             </Dialog.Panel>
           </Transition.Child>
         </div>
