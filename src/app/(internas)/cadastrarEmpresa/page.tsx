@@ -2,9 +2,7 @@
 
 import FormularioEmpresas from "@/components/empresa/FormularioEmpresa";
 import Backend from "@/backend";
-import { Cargo } from "@/core/model/Cargo";
 import { Empresa } from "@/core/model/Empresa";
-import { UsuarioEmpresa } from "@/core/model/UsuarioEmpresa";
 import { useSession } from "next-auth/react";
 
 import { useEffect, useState } from "react";
