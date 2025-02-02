@@ -10,6 +10,7 @@ interface ModalProps {
   width?: string; // Largura customizada
   onSave: () => void; // Função de salvar personalizada
   saveButtonText: string; // Texto personalizado para o botão de salvar
+  
 }
 
 export default function Modal({
