@@ -1,14 +1,15 @@
 import { Marca } from "@/core/model/Marca";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Backend from "@/backend"
+import Backend from "@/backend";
 
-export interface FormularioMarcaProps{
+export interface FormularioMarcaProps {
   marcas: Marca[];
   setMarcas: (marcas: Marca[]) => void;
+  usuario_id: number;
 }
 
-export default function FormularioMarcas(props: FormularioMarcaProps){
+export default function FormularioMarcas(props: FormularioMarcaProps) {
   const [marca, setMarca] = useState<Partial<Marca>>({});
   const [loading, setLoading] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
@@ -21,10 +22,15 @@ export default function FormularioMarcas(props: FormularioMarcaProps){
       return;
     }
 
+    const marcaComUsuarioId = {
+      ...marca,
+      empresa_Id: props.usuario_id,
+    };
+
     setLoading(true);
 
     try {
-      await Backend.marcas.salvarMarca(marca);
+      await Backend.marcas.salvarMarca(marcaComUsuarioId);
       const novasMarcas = await Backend.marcas.obterTodasMarcas();
       props.setMarcas(novasMarcas || []);
 
