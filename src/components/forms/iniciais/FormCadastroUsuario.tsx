@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { registrarUsuario } from "@/backend/usuario/registrarUser"; // Importe a função diretamente
-import { validarSenha } from "../../core/utils/ValidarSenha";
+import { validarSenha } from "../../../core/utils/ValidarSenha";
 import { useRouter } from "next/navigation";
 
 export default function CadastrarUsuario() {

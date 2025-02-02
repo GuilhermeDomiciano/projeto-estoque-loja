@@ -1,6 +1,6 @@
 "use client";
 
-import FormularioEmpresas from "@/components/empresa/FormularioEmpresa";
+import FormularioEmpresas from "@/components/forms/iniciais/FormEmpresa";
 import Backend from "@/backend";
 import { Empresa } from "@/core/model/Empresa";
 import { useSession } from "next-auth/react";

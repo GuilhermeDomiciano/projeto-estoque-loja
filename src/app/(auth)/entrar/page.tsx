@@ -1,4 +1,4 @@
-import Entrar from "@/components/entrar/Entrar";
+import Entrar from "@/components/forms/iniciais/FormEntrar";
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic'
