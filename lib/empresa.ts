@@ -12,6 +12,6 @@ export default async function findEmpresa(id: number): Promise<Empresa | null> {
       }
 
       console.log("Empresa encontrada!", emp);
-      return {id: emp.id, cnpj: String(emp.cnpj), razao_social: emp.razao_social, telefone: String(emp.telefone)};
+      return {id: emp.id, cnpj: String(emp.cnpj), razao_social: emp.razao_social, telefone: String(emp.telefone), ativa: emp.ativa};
       
 }
