@@ -11,6 +11,7 @@ export default class RepositorioEmpresa {
         const createdEmpresa = await this.db.empresa.create({
             data: {
                 ...empresaSemId,
+                ativa,  
                 produtos: {
                     connect: produtos.map((produtoId) => ({ id: produtoId })),
                 },
@@ -56,6 +57,7 @@ export default class RepositorioEmpresa {
                 usuarioEmpresa: true,
             },
         });
+
         return empresas.map(empresa => ({
             ...empresa,
             id: Number(empresa.id),
