@@ -3,7 +3,7 @@ export interface Empresa {
   cnpj?:        string | null;  
   razao_social: string;
   telefone?:    string | null;
-  ativa:        boolean;
+  ativa?:        boolean | null;
   produtos:     number[];
   pedidos:      number[];
   kits:         number[];
