@@ -74,10 +74,12 @@ export default function ListarEmpresasCadastradas({ userId }: ListarEmpresasCada
               {empresa.cnpj && <p><strong>CNPJ:</strong> {empresa.cnpj}</p>}
               {empresa.telefone && <p><strong>Telefone:</strong> {empresa.telefone}</p>}
               <p><strong>Cargo:</strong> {empresa.cargo}</p>
+                <p><strong>{empresa.ativa ? "Ativa" : "Inativa"}</strong></p>
             </div>
           ))}
         </div>
       )}
+
     </div>
   );
 }

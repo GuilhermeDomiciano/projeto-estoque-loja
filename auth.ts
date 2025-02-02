@@ -2,14 +2,14 @@ import NextAuth from 'next-auth';
 import Credentials from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
 import { Session } from "next-auth";
-import {findUser, getUserID} from "./lib/user";
+import { findUser, getUserID } from "./lib/user";
 import findEmpresa from "./lib/empresa";
 import { Usuario } from "./src/backend/interfaces/Usuario";
 import { Empresa } from "./src/backend/interfaces/Empresa";
 
 // Interface do usuário
 interface User extends Usuario {
-  empresa?: Empresa | null; // Adicionando a empresa ao tipo User
+  empresa?: Empresa | null; // A empresa é parte do objeto User
 }
 
 declare module "next-auth" {
@@ -63,11 +63,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const empresa = await findEmpresa(Number(credentials?.id));
         const userId = credentials?.userId;  // Recebendo o ID do usuário
         
-
         if (!empresa || !userId) return null;
         const us = await getUserID(Number(userId));  // Buscando o usuário pelo ID
         if (!us) return null;
-        // Agora estamos retornando um User com a empresa e o id do usuário incluídos
+
+        // Agora estamos retornando um User com a empresa e o id do usuário
         const user: User = {
           id: String(us.id),  // Passando o ID do usuário
           nome: us.nome,

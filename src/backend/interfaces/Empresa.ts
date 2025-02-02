@@ -1,6 +1,7 @@
 export interface Empresa{
     id:           number;  
-    cnpj:         string ;  
+    cnpj:         string;  
     razao_social: string;
-    telefone:     string ;
+    telefone:     string;
+    ativa:        boolean;
   }
