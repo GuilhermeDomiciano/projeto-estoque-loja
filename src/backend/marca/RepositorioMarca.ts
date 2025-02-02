@@ -17,4 +17,22 @@ export default class RepositorioMarca {
       produtos: marca.produtos.map(produto => produto.id)
     }));
   }
+
+  static async salvarMarca(marca: Marca): Promise<Marca> {
+    const { produtos = [], ...marcaSemId} = marca;
+
+    const createdMarca = await this.db.marca.create({
+      data: {
+        ...marcaSemId,
+        produtos: {
+          connect: produtos.map((produtoId) => ({id: produtoId})),
+        },
+      },
+    });
+
+    return {
+      ...createdMarca,
+      produtos,
+    }
+  }
 }
