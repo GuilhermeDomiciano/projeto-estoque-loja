@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Modal from "../../../components/ui/Modal";
 import CadastroForm from "../../../components/forms/FormProduto";
 import TabsComponent from '../../../components/ui/NavInterno';
+import  ProductCard from "@/components/ui/cards/cardProduto";
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,12 +29,23 @@ export default function App() {
   const TabContent1 = () => (
     <div>
       {!isMobile && (
+        <div>
         <button
           onClick={handleOpenModal}
           className="px-4 py-2 bg-blue-600 text-white rounded-md"
         >
           Abrir Modal de Cadastro
+          
         </button>
+        <ProductCard 
+        id={1} 
+        nome='carro' 
+        valor={5} 
+        marca="Loja" 
+        imagem="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80" 
+        onDelete={()=> console.log('deletando..')} 
+        onEdit={()=> console.log('editando..')}/>
+        </div>
       )}
 
       {isMobile ? (

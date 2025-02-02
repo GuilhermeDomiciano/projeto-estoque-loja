@@ -1,17 +1,13 @@
 'use client';
 import * as React from 'react';
-import { extendTheme } from '@mui/material/styles';
-import { useRouter } from 'next/navigation';  // Importação correta
+import { createTheme } from '@mui/material/styles';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-// import BarChartIcon from '@mui/icons-material/BarChart';
-// import DescriptionIcon from '@mui/icons-material/Description';
-//import LayersIcon from '@mui/icons-material/Layers';
 import { AppProvider, Navigation } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { PageContainer } from '@toolpad/core/PageContainer';
 import { useSession, signOut } from 'next-auth/react';
-// import { Account } from '@toolpad/core/Account';
-// import CustomMenu from './CustomMenu';
+import { useDemoRouter } from '@toolpad/core/internal';
 
 const NAVIGATION: Navigation = [
   {
@@ -31,8 +27,8 @@ const NAVIGATION: Navigation = [
     title: 'Gerenciamento',
   },
   {
-    segment: './entradasaida', 
-    title: 'Entrada e Saída'
+    segment: './entradasaida',
+    title: 'Entrada e Saída',
   },
   {
     kind: 'divider',
@@ -42,36 +38,20 @@ const NAVIGATION: Navigation = [
     title: 'Cadastros',
   },
   {
-    segment: './catalogo', 
-    title: 'Catálogo'
+    segment: './catalogo',
+    title: 'Catálogo',
   },
   {
-    segment: './clientes', 
-    title: 'Clientes'
+    segment: './clientes',
+    title: 'Clientes',
   },
-  // {
-  //   segment: '/reports',
-  //   title: 'Reports',
-  //   icon: <BarChartIcon />,
-  //   children: [
-  //     {
-  //       segment: '/reports/sales',
-  //       title: 'Sales',
-  //       icon: <DescriptionIcon />,
-  //     },
-  //     {
-  //       segment: '/reports/traffic',
-  //       title: 'Traffic',
-  //       icon: <DescriptionIcon />,
-  //     },
-  //   ],
-  // },
-  
 ];
 
-const demoTheme = extendTheme({
+const demoTheme = createTheme({
+  cssVariables: {
+    colorSchemeSelector: 'data-toolpad-color-scheme',
+  },
   colorSchemes: { light: true, dark: true },
-  colorSchemeSelector: 'class',
   breakpoints: {
     values: {
       xs: 0,
@@ -84,16 +64,18 @@ const demoTheme = extendTheme({
 });
 
 export default function DashboardLayoutBasic({ children }: { children: React.ReactNode }) {
-  const router = useRouter(); 
   const { data: us } = useSession();
- 
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const session = {
     user: {
       name: useSession().data?.user?.nome,
       email: useSession().data?.user?.login,
       image: '/avatar.jpg',
     },
-  }
+  };
 
   const authentication = React.useMemo(() => {
     return {
@@ -107,30 +89,32 @@ export default function DashboardLayoutBasic({ children }: { children: React.Rea
         router.push('/entrar');
       },
     };
-  }, []);
+  }, [us]);
+
+  const appRouter = {
+    pathname,
+    searchParams,
+    navigate: (path: string | URL) => {
+      router.push(path instanceof URL ? path.toString() : path);
+    },
+    demoRouterValue: useDemoRouter(pathname),
+  };
 
   return (
     <AppProvider
-    session={session}
-    authentication={authentication}
+      session={session}
+      authentication={authentication}
+      router={appRouter}
       navigation={NAVIGATION}
       theme={demoTheme}
       branding={{
-        logo: <img src="https://mui.com/static/logo.png" alt="MUI logo" />,
+        logo: <img src="https://mui.com/static/logo.png" alt="Logo" />,
         title: 'My Shop',
-        homeUrl: '/home', 
-      }}
-      router={{
-        pathname: '/',
-        searchParams: new URLSearchParams(),
-        navigate: (path: string | URL) => router.push(String(path)), 
+        homeUrl: '/home',
       }}
     >
-      <DashboardLayout
-      >
-        <PageContainer>
-         {children}
-        </PageContainer>
+      <DashboardLayout>
+        <PageContainer>{children}</PageContainer>
       </DashboardLayout>
     </AppProvider>
   );
