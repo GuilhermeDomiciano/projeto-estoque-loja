@@ -4,6 +4,7 @@ import salvarEmpresa from "./empresa/salvarEmpresa";
 import obterTodasMarcas from "./marca/obterTodasMarcas";
 import salvarMarca from "./marca/salvarMarca";
 import obterTodosProdutos from "./produto/obterTodosProdutos";
+import salvarProduto from "./produto/salvarProduto";
 import obterTodos from "./usuario/obterTodos";
 import { registrarUsuario } from "./usuario/registrarUser";
 import obterTodosUsuarioEmpresas from "./usuarioEmpresa/obterTodosUsuarioEmpresas";
@@ -24,7 +25,8 @@ export default class Backend{
       obterTodosUsuarioEmpresas: obterTodosUsuarioEmpresas
     }
     static readonly produtos = {
-      obterTodosProdutos: obterTodosProdutos
+      obterTodosProdutos: obterTodosProdutos,
+      salvarProduto: salvarProduto
     }
     static readonly marcas = {
       obterTodasMarcas: obterTodasMarcas,

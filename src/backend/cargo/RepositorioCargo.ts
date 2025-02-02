@@ -1,7 +1,7 @@
 import { Cargo } from "@/core/model/Cargo";
 import { PrismaClient } from "@prisma/client";
 
-export default class RepositorioEmpresa {
+export default class RepositorioCargo {
   private static db: PrismaClient = new PrismaClient();
 
   static async obterTodosCargos(): Promise<Cargo[]> {
