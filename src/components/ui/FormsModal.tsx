@@ -8,7 +8,6 @@ interface ModalProps {
   onClose: () => void;
   children: React.ReactNode;
   width?: string; // Largura customizada
-  height?: string; // Altura customizada
   onSave: () => void; // Função de salvar personalizada
   saveButtonText: string; // Texto personalizado para o botão de salvar
 }
@@ -18,13 +17,12 @@ export default function Modal({
   onClose,
   children,
   width = "max-w-md", // Largura padrão
-  height = "auto", // Altura padrão
   onSave,
   saveButtonText,
 }: ModalProps) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50" onClose={onClose}>
+      <Dialog as="div" className="relative z-100" onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -34,7 +32,7 @@ export default function Modal({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black bg-opacity-50" />
+          <div className="fixed inset-0 bg-black bg-opacity-20" />
         </Transition.Child>
 
         <div className="fixed inset-0 flex items-center justify-center p-4">
@@ -48,19 +46,19 @@ export default function Modal({
             leaveTo="opacity-0 scale-95"
           >
             <Dialog.Panel
-              className={`w-full ${width} ${height} rounded-lg bg-white p-6 shadow-xl`}
+              className={`w-full ${width} rounded-lg bg-white p-6 shadow-xl flex flex-col`}
             >
-              {children}
-              <div className="flex justify-between mt-4">
+              <div className="flex-grow mb-6">{children}</div>
+              <div className="flex justify-between mt-auto">
                 <button
                   onClick={onClose}
-                  className="w-1/2 rounded-lg bg-gray-800 px-4 py-2 text-white hover:bg-gray-700"
+                  className="w-1/5 rounded-lg bg-gray-800 px-2 py-[7px] text-white hover:bg-gray-700"
                 >
                   Fechar
                 </button>
                 <button
                   onClick={onSave}
-                  className="w-1/2 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-500"
+                  className="w-1/5 rounded-lg bg-blue-600 px-2 py-[7px] text-white hover:bg-blue-500"
                 >
                   {saveButtonText}
                 </button>

@@ -13,7 +13,6 @@ import { useSession, signOut } from 'next-auth/react';
 // import { Account } from '@toolpad/core/Account';
 // import CustomMenu from './CustomMenu';
 
-
 const NAVIGATION: Navigation = [
   {
     kind: 'header',
@@ -35,8 +34,6 @@ const NAVIGATION: Navigation = [
     segment: './entradasaida', 
     title: 'Entrada e Saída'
   },
-  
-
   {
     kind: 'divider',
   },
@@ -98,10 +95,6 @@ export default function DashboardLayoutBasic({ children }: { children: React.Rea
     },
   }
 
-  
-
-
-
   const authentication = React.useMemo(() => {
     return {
       signIn: () => {
@@ -115,8 +108,6 @@ export default function DashboardLayoutBasic({ children }: { children: React.Rea
       },
     };
   }, []);
-
-
 
   return (
     <AppProvider

@@ -18,18 +18,19 @@ export default function Exemplo() {
       >
         Abrir Modal
       </button>
-
+      
       <Modal
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
         onSave={handleSave}
-        saveButtonText="Salvar Alterações"
+        saveButtonText="Salvar"
         width="max-w-lg" // largura personalizada
-        height="h-96" // altura personalizada
       >
-        <h2 className="text-xl font-bold">Conteúdo do Modal</h2>
+        
+      <h2 className="text-xl font-bold">Conteúdo do Modal</h2>
         <p>Este é o conteúdo do modal. Você pode adicionar o que desejar aqui.</p>
       </Modal>
+
     </div>
   );
 }
