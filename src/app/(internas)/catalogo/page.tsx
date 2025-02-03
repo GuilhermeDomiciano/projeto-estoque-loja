@@ -6,10 +6,17 @@ import CadastroForm from "../../../components/forms/FormProduto";
 import TabsComponent from '../../../components/ui/NavInterno';
 import  ProductCard from "@/components/ui/cards/cardProduto";
 import Grad from "@/components/ui/containersListagens/grad";
+import { Produto } from "@/core/model/Produto";
+import { Marca } from "@/core/model/Marca";
+import { useSession } from "next-auth/react";
+import Backend from "@/backend";
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const { data: session } = useSession();
+  const empresaId = Number(session?.user?.empresa?.id)
+  const [marcas, setMarcas] = useState<Marca[]>([]);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -20,11 +27,23 @@ export default function App() {
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
+  useEffect(() => {
+    async function fetchMarcas() {
+      try {
+        const marcasData = await Backend.marcas.obterTodasMarcas(); // Await the promise to get the data
+        setMarcas(marcasData); // Set the resolved data to state
+      } catch (error) {
+        console.error("Erro ao buscar marcas:", error);
+      }
+    }
+    fetchMarcas();
+  }, []);
+
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
-  const handleSave = (data: Record<string, string>) => {
-    console.error("Formulário enviado com os dados:", data);
+  const handleSave = (item: Produto) => {
+    console.error("Formulário enviado com os dados:", item);
   };
 
   const TabContent1 = () => (
@@ -137,7 +156,7 @@ export default function App() {
         </Grad>
       ) : (
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-          <CadastroForm handleSave={handleSave} onClose={handleCloseModal} />
+          <CadastroForm handleSave={handleSave} onClose={handleCloseModal} empresaId={empresaId} marcas={marcas} />
         </Modal>
       )}
     </div>
