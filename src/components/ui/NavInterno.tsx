@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 interface TabsComponentProps {
-  tabsData: { [key: string]: React.ReactNode }; // Definindo que tabsData é um objeto com chaves de string e valores React.ReactNode
+  tabsData: { [key: string]: React.ReactNode };
 }
 
 const TabsComponent: React.FC<TabsComponentProps> = ({ tabsData }) => {
@@ -10,7 +10,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ tabsData }) => {
 
   return (
     <div className="w-full mx-auto p-0">
-      <nav className="flex space-x-2 border-b justify-between w-full">
+      <nav className="flex space-x-2 border-b justify-between w-full overflow-x-auto max-w-full">
         {Object.keys(tabsData).map((tabName) => (
           <button
             key={tabName}

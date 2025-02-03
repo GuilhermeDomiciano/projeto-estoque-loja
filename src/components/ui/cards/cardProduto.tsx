@@ -12,11 +12,11 @@ interface prop {
 
 function ProductCard({ id, nome, valor, marca, imagem, onEdit, onDelete }: prop) {
   return (
-    <div className="max-w-xl sm:w-[130px] md:w-[150px] lg:w-[180px] xl:w-[250px] rounded-lg border border-gray-200 bg-white shadow-md">
+    <div className=" sm:w-[180px] md:w-[180px] lg:w-[250px] xl:w-[250px] rounded-lg border border-gray-200 bg-white shadow-md">
       <img
         src={imagem}
         alt={nome}
-        className="w-full h-48 object-cover rounded-t-lg"
+        className="w-full h-40 object-cover rounded-t-lg"
       />
       <div className="p-4">
         <div className="flex items-center justify-between">

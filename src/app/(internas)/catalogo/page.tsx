@@ -31,6 +31,14 @@ export default function App() {
     <div>
       {!isMobile && (
         <Grad onFloatingButtonClick={handleOpenModal}>
+          <ProductCard 
+        id={1} 
+        nome='carro' 
+        valor={5} 
+        marca="Loja" 
+        imagem="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80" 
+        onDelete={()=> console.log('deletando..')} 
+        onEdit={()=> console.log('editando..')}/>
         <ProductCard 
         id={1} 
         nome='carro' 
@@ -77,6 +85,14 @@ export default function App() {
 
       {isMobile ? (
          <Grad onFloatingButtonClick={handleOpenModal} >
+          <ProductCard 
+        id={1} 
+        nome='carro' 
+        valor={5} 
+        marca="Loja" 
+        imagem="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80" 
+        onDelete={()=> console.log('deletando..')} 
+        onEdit={()=> console.log('editando..')}/>
                <ProductCard 
         id={1} 
         nome='carro' 
