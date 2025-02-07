@@ -10,6 +10,7 @@ import { Produto } from "@/core/model/Produto";
 import { Marca } from "@/core/model/Marca";
 import { useSession } from "next-auth/react";
 import Backend from "@/backend";
+import CadastroFormMarca from "@/components/forms/FormMarca";
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,15 +28,16 @@ export default function App() {
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
-  useEffect(() => {
-    async function fetchMarcas() {
-      try {
-        const marcasData = await Backend.marcas.obterTodasMarcas(); // Await the promise to get the data
-        setMarcas(marcasData); // Set the resolved data to state
-      } catch (error) {
-        console.error("Erro ao buscar marcas:", error);
-      }
+  const fetchMarcas = async ()=>{
+    try{
+      const marcasData = await Backend.marcas.obterTodasMarcas();
+      setMarcas(marcasData);
+    } catch (error){
+      console.error("Erro ao buscar marcas:", error)
     }
+  }
+
+  useEffect(() =>{
     fetchMarcas();
   }, []);
 
@@ -44,6 +46,16 @@ export default function App() {
 
   const handleSave = (item: Produto) => {
     console.error("Formulário enviado com os dados:", item);
+  };
+
+  const handleSaveMarca = async (item: Marca) =>{
+    console.error("Formulário enviado com os dados:", item);
+
+    try {
+      await fetchMarcas();
+    } catch (error) {
+      console.error("Erro ao atualizar marcas:", error)
+    }
   };
 
   const TabContent1 = () => (
@@ -156,7 +168,16 @@ export default function App() {
         </Grad>
       ) : (
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-          <CadastroForm handleSave={handleSave} onClose={handleCloseModal} empresaId={empresaId} marcas={marcas} />
+          <CadastroForm 
+            handleSave={handleSave} 
+            onClose={handleCloseModal} 
+            empresaId={empresaId} 
+            marcas={marcas.map(({ id, nome, empresa_Id }) => ({
+              id: id ?? 0,
+              nome,
+              empresa_Id
+            }))}
+/>
         </Modal>
       )}
     </div>
@@ -171,8 +192,18 @@ export default function App() {
   
   const TabContent3 = () => (
     <div>
-      <h2>Conteúdo da Aba 3</h2>
-      <p>Este é o conteúdo da terceira aba.</p>
+      {!isMobile && (
+        <Grad onFloatingButtonClick={handleOpenModal} children={undefined} />
+      )}
+
+      {isMobile ? (
+        <Grad onFloatingButtonClick={handleOpenModal} children={undefined} />
+      ) : (
+        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+          <CadastroFormMarca handleSave={handleSaveMarca} onClose={handleCloseModal} empresa_id={empresaId} marcas={marcas} />
+        </Modal>
+      )}
+
     </div>
   );
   const TabContent4 = () => (

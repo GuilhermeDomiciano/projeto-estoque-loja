@@ -1,5 +1,5 @@
 export interface Marca {
-    id:       number; 
+    id?:       number; 
     nome:     string;
     empresa_Id: number;
     produtos: number[]

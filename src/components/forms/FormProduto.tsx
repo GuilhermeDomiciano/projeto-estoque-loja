@@ -12,7 +12,7 @@ interface CadastroFormProps {
   marcas: { id: number; nome: string; empresa_Id: number }[]; 
 }
 
-const CadastroForm = ({
+const CadastroFormProduto = ({
   handleSave,
   onClose,
   empresaId, 
@@ -140,4 +140,4 @@ const CadastroForm = ({
   );
 };
 
-export default CadastroForm;
+export default CadastroFormProduto;
