@@ -11,7 +11,7 @@ interface CadastroFormMarcaProps {
   marcas: Marca[];
 }
 
-const CadastroFormMarca = ({ handleSave, onClose, empresa_id }: CadastroFormMarcaProps) => {
+const CadastroFormMarca = ({ handleSave, onClose, empresa_id, marcas }: CadastroFormMarcaProps) => {
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -27,18 +27,33 @@ const CadastroFormMarca = ({ handleSave, onClose, empresa_id }: CadastroFormMarc
       formObject[key] = value as string;
     });
 
-    console.log("Enviado:", formObject);
+    const nomeMarca = formObject["nome"].trim();
+
+    // Verifica se a marca já existe para a mesma empresa
+    const marcaExiste = marcas.some(
+      (marca) => marca.nome.toLowerCase() === nomeMarca.toLowerCase() && marca.empresa_Id === empresa_id
+    );
+
+    if (marcaExiste) {
+      setMessage("Erro: Já existe uma marca com esse nome para esta empresa.");
+      setLoading(false);
+      return;
+    }
 
     try {
       const marcaData: Marca = {
-        nome: formObject["nome"],
+        nome: nomeMarca,
         empresa_Id: empresa_id,
         produtos: []
       };
 
       const savedMarca = await Backend.marcas.salvarMarca(marcaData);
       handleSave(savedMarca);
-      setMessage(`Formulário enviado com sucesso! Dados: ${JSON.stringify(savedMarca)}`);
+      
+      setMessage(`Marca "${savedMarca.nome}" cadastrada com sucesso!`);
+      
+      // Fecha o formulário somente se salvar com sucesso
+      onClose();
     } catch (error) {
       setMessage("Erro ao salvar a marca.");
       console.error(error);
@@ -65,7 +80,7 @@ const CadastroFormMarca = ({ handleSave, onClose, empresa_id }: CadastroFormMarc
       </div>
 
       {message && (
-        <div className="mt-4 text-green-600">
+        <div className={`mt-4 text-${message.startsWith("Erro") ? "red" : "green"}-600`}>
           {message}
         </div>
       )}

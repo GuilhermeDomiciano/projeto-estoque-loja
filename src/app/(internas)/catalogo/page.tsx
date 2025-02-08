@@ -157,7 +157,6 @@ export default function App() {
 
       {isMobile ? (
         <Grad onFloatingButtonClick={handleOpenModal}>
-          {/* Passando conteúdo vazio como children */}
           <></>
         </Grad>
       ) : (
