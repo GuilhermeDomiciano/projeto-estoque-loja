@@ -59,6 +59,8 @@ model Empresa {
   Marca Marca[]
   ativa          Boolean @default(false)
   createdAt      DateTime @default(now()) 
+
+  Fornecedor Fornecedor[]
 }
 
 model Marca {
@@ -203,5 +205,7 @@ model Fornecedor {
   razao_social   String
   telefone       String?
   endereco       String?
+  empresa_id Int
+  empresa     Empresa @relation(fields: [empresa_id], references: [id])
   Itens_lote Itens_lote[]
 }

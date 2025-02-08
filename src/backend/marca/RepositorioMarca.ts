@@ -7,8 +7,7 @@ export default class RepositorioMarca {
   static async obterTodasMarcas(): Promise<Marca[]> {
     const marcas = await this.db.marca.findMany({
       include: {
-        produtos: true,
-        empresa: true,  
+        produtos: true
       },
     });
 
