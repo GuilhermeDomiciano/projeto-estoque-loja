@@ -2,7 +2,7 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { Camera } from "lucide-react";
+
 
 interface ModalProps {
   isOpen: boolean;
