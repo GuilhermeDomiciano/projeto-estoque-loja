@@ -15,19 +15,20 @@ export default class RepositorioProduto {
     return produtos.map(produto => ({
       ...produto,
       id: Number(produto.id),
-      img: produto.img || "",
+      img: produto.img || "", // Garante que img seja uma string vazia se for null
       variacoes: produto.variacoes.map(variacao => variacao.id),
       itens_kits: produto.itens_kits.map(item_kit => item_kit.id),
     }));
   }
 
   static async salvarProduto(produto: Produto): Promise<Produto> {
+    // Define img como string vazia se não for fornecida
     const { variacoes = [], itens_kits = [], img = "", ...produtoSemId } = produto;
 
     const createdProduto = await this.db.produto.create({
       data: {
         ...produtoSemId,
-        img: img || "",
+        img: img || "", // Garante que img seja uma string vazia
         variacoes: {
           connect: variacoes.map((variacaoId) => ({ id: variacaoId })),
         },
@@ -39,7 +40,7 @@ export default class RepositorioProduto {
 
     return {
       ...createdProduto,
-      img: createdProduto.img || "",
+      img: createdProduto.img || "", // Garante que img seja uma string vazia
       variacoes,
       itens_kits,
     };
