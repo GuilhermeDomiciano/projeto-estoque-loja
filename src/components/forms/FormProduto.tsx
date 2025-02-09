@@ -4,7 +4,7 @@ import React, { FormEvent, useState } from "react";
 import Backend from "@/backend";
 import { Produto } from "@/core/model/Produto";
 import FormMarca from "../marca/CbxMarca";
-import { Camera } from "lucide-react";
+import { enviarProduto } from "@/backend/api_imagens/api"; // Importa a função de envio da imagem
 
 interface CadastroFormProps {
   handleSave: (item: Produto) => void;
@@ -23,19 +23,22 @@ const CadastroFormProduto = ({
   const [selectedOption, setSelectedOption] = useState<string | number>("");
   const [loading, setLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-
+  const [imageFile, setImageFile] = useState<File | null>(null); 
+  
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => setImagePreview(reader.result as string);
       reader.readAsDataURL(file);
+      setImageFile(file); 
     }
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     setLoading(true);
     event.preventDefault();
+
     const formData = new FormData(event.currentTarget);
 
     const formObject: Record<string, string> = {};
@@ -46,6 +49,16 @@ const CadastroFormProduto = ({
     formObject["selectedOption"] = selectedOption.toString();
 
     try {
+      let imgUrl = null;
+      if (imageFile) {
+        imgUrl = await enviarProduto(imageFile); 
+        if (!imgUrl) {
+          setMessage("Erro ao enviar a imagem.");
+          setLoading(false);
+          return;
+        }
+      }
+
       const produtoData: Produto = {
         descricao: formObject["descricao"],
         marca_id:
@@ -53,7 +66,7 @@ const CadastroFormProduto = ({
             ? parseInt(formObject["marca_id"] as string)
             : selectedOption,
         empresa_id: empresaId,
-        img: null,
+        img: imgUrl, // Adiciona a URL da imagem
         variacoes: [],
         itens_kits: [],
       };
@@ -74,12 +87,11 @@ const CadastroFormProduto = ({
       <div className="flex flex-1 gap-6">
         {/* Pré-visualização da imagem */}
         <div className="w-1/3 flex flex-col">
-
           <div className="mt-2 mb-4 w-full h-48 bg-gray-200 flex items-center justify-center border border-gray-300 rounded-md overflow-hidden">
             {imagePreview ? (
               <img src={imagePreview} alt="Pré-visualização" className="w-full h-full object-cover" />
             ) : (
-              <span className="text-gray-500"><Camera className="w-12 h-12 text-gray-400" /></span>
+              <span className="text-gray-500">Nenhuma imagem</span>
             )}
           </div>
           <input
@@ -91,7 +103,7 @@ const CadastroFormProduto = ({
             className="w-full rounded-md bg-gray-100 px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
           />
         </div>
-        
+
         {/* Campos do formulário */}
         <div className="w-2/3 flex flex-col space-y-4">
           <label className="block text-sm font-medium text-gray-900 mb-[-8px]">Descrição do Produto</label>

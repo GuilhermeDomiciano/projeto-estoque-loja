@@ -15,14 +15,13 @@ export default class RepositorioProduto {
     return produtos.map(produto => ({
       ...produto,
       id: Number(produto.id),
-      img: produto.img ?? "", 
+      img: produto.img ?? "",
       variacoes: produto.variacoes.map(variacao => variacao.id),
       itens_kits: produto.itens_kits.map(item_kit => item_kit.id),
     }));
   }
 
   static async salvarProduto(produto: Produto): Promise<Produto> {
-    // Define img como string vazia se não for fornecida
     const { variacoes = [], itens_kits = [], img = "", ...produtoSemId } = produto;
 
     const createdProduto = await this.db.produto.create({
