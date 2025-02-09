@@ -46,7 +46,6 @@ const CadastroFormProduto = ({
         descricao: formObject["descricao"],
         marca_id: typeof selectedOption === 'string' ? parseInt(formObject["marca_id"] as string) : selectedOption,
         empresa_id: empresaId,
-        img: null,
         variacoes: [],
         itens_kits: [],
       };
