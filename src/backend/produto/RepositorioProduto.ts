@@ -28,7 +28,7 @@ export default class RepositorioProduto {
     const createdProduto = await this.db.produto.create({
       data: {
         ...produtoSemId,
-        img: img || "", // Garante que img seja uma string vazia
+        img: img || "", 
         variacoes: {
           connect: variacoes.map((variacaoId) => ({ id: variacaoId })),
         },
@@ -40,7 +40,7 @@ export default class RepositorioProduto {
 
     return {
       ...createdProduto,
-      img: createdProduto.img || "", // Garante que img seja uma string vazia
+      img: createdProduto.img || "", 
       variacoes,
       itens_kits,
     };

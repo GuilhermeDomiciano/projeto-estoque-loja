@@ -8,7 +8,8 @@ export default class RepositorioUsuario{
         const usuarios = await this.db.usuario.findMany();
         return usuarios.map(usuario => ({
             ...usuario,
-            id: Number(usuario.id)
+            id: Number(usuario.id),
+            img: usuario.img ?? ""
         }));
     }
 }
