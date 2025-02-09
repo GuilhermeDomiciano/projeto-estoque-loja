@@ -4,7 +4,7 @@ export interface Usuario {
     login: string; 
     senha: string;
     email: string;
-    img:    string | null;
+    img?:    string;
     empresas?: number[] | null;
     UsuarioEmpresas?: number[] | null;
 }
