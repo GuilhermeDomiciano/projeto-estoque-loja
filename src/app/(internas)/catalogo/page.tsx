@@ -59,9 +59,7 @@ export default function App() {
 
   const TabContent1 = () => (
     <div>
-      {!isMobile && (
         <Grad onFloatingButtonClick={handleOpenModal}>
-          {/* Card de produtos */}
           <ProductCard 
             id={1} 
             nome="Carro" 
@@ -90,39 +88,7 @@ export default function App() {
             onEdit={() => console.log('Editando...')} 
           />
         </Grad>
-      )}
 
-      {isMobile ? (
-        <Grad onFloatingButtonClick={handleOpenModal}>
-          <ProductCard 
-            id={1} 
-            nome="Carro" 
-            valor={5} 
-            marca="Loja" 
-            imagem="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80" 
-            onDelete={() => console.log('Deletando...')} 
-            onEdit={() => console.log('Editando...')} 
-          />
-          <ProductCard 
-            id={2} 
-            nome="Moto" 
-            valor={10} 
-            marca="Loja" 
-            imagem="https://images.unsplash.com/photo-1633656989063-fb730b6505d3?crop=entropy&cs=tinysrgb&fit=max&ixid=MnwzNjA1fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080" 
-            onDelete={() => console.log('Deletando...')} 
-            onEdit={() => console.log('Editando...')} 
-          />
-          <ProductCard 
-            id={3} 
-            nome="Bicicleta" 
-            valor={3} 
-            marca="Loja" 
-            imagem="https://images.unsplash.com/photo-1613385572642-bb9446707c60?crop=entropy&cs=tinysrgb&fit=max&ixid=MnwzNjA1fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080" 
-            onDelete={() => console.log('Deletando...')} 
-            onEdit={() => console.log('Editando...')} 
-          />
-        </Grad>
-      ) : (
         <Modal isOpen={isModalOpen} onClose={handleCloseModal} width='w-[680px]' title="Cadastro de Produtos" description="Informe as informações referentes ao produto">
           <CadastroForm
             handleSave={handleSave}
@@ -135,7 +101,7 @@ export default function App() {
             }))}
           />
         </Modal>
-      )}
+
     </div>
   );
 
