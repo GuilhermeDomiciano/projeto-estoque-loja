@@ -1,6 +1,6 @@
 import TabsComponent from '../../../components/ui/NavInterno';
 
-// Defina os componentes para o conteúdo de cada aba
+
 const TabContent1 = () => (
   <div>
     <h2>Conteúdo da Aba 1</h2>
