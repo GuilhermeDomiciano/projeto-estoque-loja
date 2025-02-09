@@ -3,14 +3,13 @@ import React from 'react';
 interface prop {
   id: number;
   nome: string;
-  valor: number;
   marca: string;
   imagem: string;
   onEdit: (id: number) => void;
   onDelete: (id: number) => void;
 }
 
-function ProductCard({ id, nome, valor, marca, imagem, onEdit, onDelete }: prop) {
+function ProductCard({ id, nome, marca, imagem, onEdit, onDelete }: prop) {
   return (
     <div className=" sm:w-[180px] md:w-[180px] lg:w-[250px] xl:w-[250px] rounded-lg border border-gray-200 bg-white shadow-md">
       <img
@@ -39,7 +38,6 @@ function ProductCard({ id, nome, valor, marca, imagem, onEdit, onDelete }: prop)
           </div>
         </div>
         <p className="text-gray-600">{marca}</p>
-        <p className="text-xl font-semibold text-gray-800">{`R$ ${valor.toFixed(2)}`}</p>
       </div>
     </div>
   );
