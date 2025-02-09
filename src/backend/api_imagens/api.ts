@@ -19,17 +19,17 @@ export async function enviarProduto (selectedFile: File) {
   const formData = new FormData();
   formData.append("profile", selectedFile);
 
-  try {
-    const res = await fetch("https://api-img-psi.vercel.app/api/imagens", {
-      method: "POST",
-      body: formData,
-    });
-    const data = await res.json();
-    console.log(data.message, "Upload realizado com sucesso!");
-    return data.data;
-
-  } catch (error) {
-    console.error("Erro ao enviar arquivo:", error);
+    try {
+      const res = await fetch("https://api-img-psi.vercel.app/api/imagens", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      console.log(data.message || "Upload realizado com sucesso!");
+      return data.data;
+    
+    } catch (error) {
+      console.error("Erro ao enviar arquivo:", error);
 
   }
 };
