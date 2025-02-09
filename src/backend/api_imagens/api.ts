@@ -26,7 +26,7 @@ export async function enviarProduto (selectedFile: File) {
       });
       const data = await res.json();
       console.log(data.message || "Upload realizado com sucesso!");
-      return data.secure_url;
+      return data.data;
     
     } catch (error) {
       console.error("Erro ao enviar arquivo:", error);
