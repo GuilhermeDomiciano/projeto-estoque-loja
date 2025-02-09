@@ -13,6 +13,7 @@ model Usuario {
   login          String   @unique
   senha          String
   email          String   @unique
+  img            String?
   empresas       Empresa[]
   usuarioEmpresa UsuarioEmpresa[]
   createdAt      DateTime @default(now())
@@ -85,6 +86,7 @@ model Produto {
   descricao  String?
   marca_id   Int
   empresa_id Int
+  img        String?
   marca      Marca      @relation(fields: [marca_id], references: [id])
   empresa    Empresa    @relation(fields: [empresa_id], references: [id])
   variacoes  Variacao[]
@@ -97,6 +99,7 @@ model Variacao {
   id               Int           @id @default(autoincrement())
   tipo_variacao_id Int
   produto_id       Int
+  img              String?
   tipo_variacao    Tipos_variacao @relation(fields: [tipo_variacao_id], references: [id])
   produto          Produto        @relation(fields: [produto_id], references: [id])
   itens_lotes      Itens_lote[]
