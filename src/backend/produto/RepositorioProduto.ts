@@ -15,7 +15,7 @@ export default class RepositorioProduto {
     return produtos.map(produto => ({
       ...produto,
       id: Number(produto.id),
-      img: produto.img || "", // Garante que img seja uma string vazia se for null
+      img: produto.img ?? "", 
       variacoes: produto.variacoes.map(variacao => variacao.id),
       itens_kits: produto.itens_kits.map(item_kit => item_kit.id),
     }));
