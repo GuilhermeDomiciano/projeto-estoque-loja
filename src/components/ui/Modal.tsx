@@ -2,7 +2,7 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { CameraIcon } from "@heroicons/react/outline";
+import { Camera } from "lucide-react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -52,7 +52,7 @@ export default function Modal({
               {title && <h2 className="text-lg font-bold text-gray-900">{title}</h2>}
               {description && <p className="text-sm text-gray-600 mb-4">{description}</p>}
               <div className="flex-grow flex items-center justify-center">
-                <CameraIcon className="w-12 h-12 text-gray-400" />
+                <Camera className="w-12 h-12 text-gray-400" />
               </div>
               <div>{children}</div>
             </Dialog.Panel>
