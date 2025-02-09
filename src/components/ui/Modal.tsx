@@ -19,7 +19,7 @@ export default function Modal({
   children,
   title,
   description,
-  width = "max-w-full", // Largura padrão
+  width = "w-[500px]", // Largura padrão
 }: ModalProps) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
