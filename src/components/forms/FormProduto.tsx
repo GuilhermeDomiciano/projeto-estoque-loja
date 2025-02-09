@@ -5,6 +5,7 @@ import Backend from "@/backend";
 import { Produto } from "@/core/model/Produto";
 import FormMarca from "../marca/CbxMarca";
 import { enviarProduto } from "@/backend/api_imagens/api"; // Importa a função de envio da imagem
+import { Camera } from "lucide-react";
 
 interface CadastroFormProps {
   handleSave: (item: Produto) => void;
@@ -91,7 +92,7 @@ const CadastroFormProduto = ({
             {imagePreview ? (
               <img src={imagePreview} alt="Pré-visualização" className="w-full h-full object-cover" />
             ) : (
-              <span className="text-gray-500">Nenhuma imagem</span>
+              <span className="text-gray-500"><Camera className="w-12 h-12 text-gray-500" /></span>
             )}
           </div>
           <input
