@@ -50,9 +50,8 @@ export default function Modal({
               className={`w-full ${width} max-h-screen rounded-lg bg-white p-6 shadow-xl flex flex-col overflow-y-auto`}
             >
               {title && <h2 className="text-lg font-bold text-gray-900">{title}</h2>}
-              {description && <p className="text-sm text-gray-600 mb-4">{description}</p>}
+              {description && <p className="text-sm text-gray-600 mb-[0px]">{description}</p>}
               <div className="flex-grow flex items-center justify-center">
-                <Camera className="w-12 h-12 text-gray-400" />
               </div>
               <div>{children}</div>
             </Dialog.Panel>
