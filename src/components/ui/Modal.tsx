@@ -47,7 +47,7 @@ export default function Modal({
             leaveTo="opacity-0 scale-95"
           >
             <Dialog.Panel
-              className={`w-full ${width} max-h-screen rounded-lg bg-white p-6 shadow-xl flex flex-col overflow-y-auto`}
+              className={` ${width} max-h-screen rounded-lg bg-white p-6 shadow-xl flex flex-col overflow-y-auto`}
             >
               {title && <h2 className="text-lg font-bold text-gray-900">{title}</h2>}
               {description && <p className="text-sm text-gray-600 mb-[0px]">{description}</p>}

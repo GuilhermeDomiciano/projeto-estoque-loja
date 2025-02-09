@@ -123,7 +123,7 @@ export default function App() {
           />
         </Grad>
       ) : (
-        <Modal isOpen={isModalOpen} onClose={handleCloseModal} width='w-[500px]' title="Cadastro de Produtos" description="Informe as informações referentes ao produto">
+        <Modal isOpen={isModalOpen} onClose={handleCloseModal} width='w-[680px]' title="Cadastro de Produtos" description="Informe as informações referentes ao produto">
           <CadastroForm
             handleSave={handleSave}
             onClose={handleCloseModal}
