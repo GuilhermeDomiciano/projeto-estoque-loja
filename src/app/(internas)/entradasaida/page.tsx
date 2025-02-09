@@ -1,6 +1,5 @@
 import TabsComponent from '../../../components/ui/NavInterno';
 
-
 const TabContent1 = () => (
   <div>
     <h2>Conteúdo da Aba 1</h2>
@@ -14,8 +13,6 @@ const TabContent2 = () => (
     <p>Este é o conteúdo da segunda aba.</p>
   </div>
 );
-
-
 
 const MyPage = () => {
   const tabsData = {

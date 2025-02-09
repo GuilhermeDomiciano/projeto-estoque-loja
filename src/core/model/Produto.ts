@@ -3,7 +3,7 @@ export interface Produto {
     descricao?: string | null;
     marca_id: number;
     empresa_id: number;
-    img?: string;
+    img: string | null;
     variacoes: number[];
     itens_kits: number[];
 }
